@@ -1,0 +1,109 @@
+{
+    "name": "InputAction",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "54019f0f-1614-4e1c-a660-c8f19b0a1300",
+            "actions": [
+                {
+                    "name": "Lane1",
+                    "type": "PassThrough",
+                    "id": "6a1fd1c1-2353-46e7-861b-7c83d0c3311b",
+                    "expectedControlType": "Key",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Lane2",
+                    "type": "PassThrough",
+                    "id": "e49a988c-c611-472d-9e8a-5aeac6762ddd",
+                    "expectedControlType": "Key",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "Lane3",
+                    "type": "PassThrough",
+                    "id": "cc0e6cb2-5123-45d4-b94a-3a14e8376185",
+                    "expectedControlType": "Key",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "Lane4",
+                    "type": "PassThrough",
+                    "id": "acf1a0af-8fcf-492b-ad2a-b3d89c4e79cd",
+                    "expectedControlType": "Key",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "Test",
+                    "type": "PassThrough",
+                    "id": "14c9015e-1009-4cd2-a016-b0bc68b4bf05",
+                    "expectedControlType": "Key",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "abd96fbe-63c8-499e-8f8f-b163584154b2",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lane1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e96fe44d-d6e0-4f28-ab05-8a0da95c7e97",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lane2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc14fb35-f372-419e-8d61-bbb8e8e03b1c",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lane3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ddf59f16-f041-446e-8eeb-cb5da207e516",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4153fc1-049c-45f4-812f-d0dd8f21d3bb",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lane4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
