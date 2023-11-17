@@ -46,7 +46,7 @@ public class SelectSceneDirector : MonoBehaviour
             case SelectContext.SelectRoutine.Chart:
                 {
                     SelectContext.selectRoutine = SelectContext.SelectRoutine.Chart_Select;
-                    FadeContext.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/PlayScene"); });
+                    ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/PlayScene"); });
                 }
                 break;
         }

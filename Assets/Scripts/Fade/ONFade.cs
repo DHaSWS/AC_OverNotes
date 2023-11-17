@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FadeContext : MonoBehaviour
+public class ONFade : MonoBehaviour
 {
     static public float value = 0.0f;
 
-    private enum State
+    public enum State
     {
         Idle_FadeIn,
         FadeIn,
@@ -16,7 +16,12 @@ public class FadeContext : MonoBehaviour
         FadeOut
     }
 
-    static private State state = State.Idle_FadeOut;
+    static private State state = State.Idle_FadeIn;
+
+    static public bool Same(State targetState)
+    {
+        return state == targetState;
+    }
 
     static public void SetFadeIn(
         MonoBehaviour monoBehaviour,
@@ -42,15 +47,18 @@ public class FadeContext : MonoBehaviour
         Action action
         )
     {
-        for (float i = 0; i < time; i += Time.deltaTime)
+        float nowTime = 0.0f;
+        while (value <= 1.0f)
         {
-            value = i / time;
+            value = nowTime / time;
+            Debug.Log(value);
             image.color = new Color(
                 image.color.r,
                 image.color.g,
                 image.color.b,
                 value
                 );
+            nowTime += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
         state = State.Idle_FadeOut;
@@ -81,19 +89,21 @@ public class FadeContext : MonoBehaviour
         Action action
         )
     {
-        for (float i = 0; i < time; i += Time.deltaTime)
+        float nowTime = 0.0f;
+        while (value >= 0.0f)
         {
-            value = 1 - (i / time);
+            value = 1.0f - nowTime / time;
+            Debug.Log(value);
             image.color = new Color(
                 image.color.r,
                 image.color.g,
                 image.color.b,
                 value
                 );
+            nowTime += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
         state = State.Idle_FadeIn;
-
         action();
     }
 }

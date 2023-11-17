@@ -24,12 +24,12 @@ public class AudioPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (PlayContext.routine == PlayContext.Routine.Play)
+        if (PlayContext.routine >= PlayContext.Routine.Play)
         {
             PlayMusic();
         }
 
-        if(audioSource.time >= audioSource.clip.length)
+        if(SystemData.nowTime - offset >= audioSource.clip.length)
         {
             audioSource.Stop();
             PlayContext.routine = PlayContext.Routine.FadeIn;
@@ -42,10 +42,10 @@ public class AudioPlayer : MonoBehaviour
         double time1f = 1.0f / SystemData.noteSpeed;
         double addTime = time1f * 9.0f;
         PlayContext.displayTime = SystemData.nowTime + addTime;
-        Debug.Log(addTime);
 
         if(SystemData.nowTime > offset &&
-            !audioSource.isPlaying)
+            !audioSource.isPlaying &&
+            PlayContext.routine == PlayContext.Routine.Play)
         {
             float time = (float)(SystemData.nowTime - offset);
             audioSource.time = time;

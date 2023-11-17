@@ -26,7 +26,7 @@ public class PlaySceneDirector : MonoBehaviour
 
         Debug.Log(SystemData.GetChart().maxCombo);
 
-        FadeContext.SetFadeOut(this, 0.5f, fadeImage, () => { PlayContext.routine = PlayContext.Routine.Ready; });
+        ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { PlayContext.routine = PlayContext.Routine.Ready; });
     }
 
     private void FixedUpdate()
@@ -41,14 +41,15 @@ public class PlaySceneDirector : MonoBehaviour
             }
         }
 
+        if(PlayContext.routine == PlayContext.Routine.FadeIn &&
+            ONFade.Same(ONFade.State.Idle_FadeIn))
+        {
+            ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { Debug.Log("おわったよ"); });
+        }
+
         if (SystemData.nowTime > PlayContext.lastBeatTime)
         {
             PlayContext.routine = PlayContext.Routine.Finish;
-        }
-
-        if(PlayContext.routine== PlayContext.Routine.FadeIn)
-        {
-            FadeContext.SetFadeOut(this, 0.5f, fadeImage, () => { Debug.Log("おわったよ"); });
         }
     }
 

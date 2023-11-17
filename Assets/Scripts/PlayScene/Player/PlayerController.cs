@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
             if (SystemData.PlayData.lanes[index].childCount == 0)
             {
-                return;
+                continue;
             }
             if (kvp.phase == InputActionPhase.Started)
                 Push(index, triggeredTime);
