@@ -16,7 +16,7 @@ public class ONFade : MonoBehaviour
         FadeOut
     }
 
-    static private State state = State.Idle_FadeIn;
+    static private State state = State.Idle_FadeOut;
 
     static public bool Same(State targetState)
     {

@@ -38,7 +38,7 @@ public class AudioPlayer : MonoBehaviour
 
     private void PlayMusic()
     {
-        SystemData.nowTime = AudioSettings.dspTime - PlayContext.playDspTime;
+        SystemData.nowTime += Time.deltaTime;
         double time1f = 1.0f / SystemData.noteSpeed;
         double addTime = time1f * 9.0f;
         PlayContext.displayTime = SystemData.nowTime + addTime;
