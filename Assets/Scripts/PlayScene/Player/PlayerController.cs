@@ -2,13 +2,21 @@ using OverNotes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using Effekseer;
+using static UnityEditor.PlayerSettings;
+using UnityEngine.SearchService;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] AudioSource se;
     [SerializeField] private InputActionAsset asset;
     [SerializeField] InputActionTrace trace;
+    [SerializeField] EffekseerEffectAsset effect;
 
+    //エフェクトの拡大率
+    private static Vector3 m_effectScale=new Vector3(0.3f, 0.3f, 0.3f);
+
+    
     private void Awake()
     {
         InputSystem.pollingFrequency = 240;
@@ -73,6 +81,8 @@ public class PlayerController : MonoBehaviour
 
         se.PlayOneShot(se.clip);
 
+        PlayTapEffect(index);
+
         noteController.JudgeNormal(Mathf.Abs((float)(triggeredTime - noteController.param.beatTime)));
     }
     private void Released(int index, double triggeredTime)
@@ -93,5 +103,25 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("trace is already null. Skipping unsubscribe and dispose.");
         }
+    }
+
+    /// <summary>
+    /// タップエフェクト描画
+    /// </summary>
+    /// <param name="pushNumber">押したキーの番号</param>
+    private void PlayTapEffect(int pushNumber)
+    {
+        //エフェクトの座標計算
+        Vector3 effectPosition = new Vector3 (-1.5f +( (pushNumber) * 1.0f), -5, 0.5f);
+        
+        
+        //エフェクト
+        EffekseerHandle handle = EffekseerSystem.PlayEffect(effect, effectPosition);
+        //拡大率
+        handle.SetScale(m_effectScale);
+        //角度
+        //handle.SetRotation(effectRotation);
+
+        Debug.Log("playEffect!!");
     }
 }
