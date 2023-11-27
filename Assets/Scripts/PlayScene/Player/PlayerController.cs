@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] EffekseerEffectAsset effect;
 
     //エフェクトの拡大率
-    private static Vector3 m_effectScale=new Vector3(0.3f, 0.3f, 0.3f);
+    private static Vector3 m_effectScale = new Vector3(0.3f, 0.3f, 0.3f);
 
     
     private void Awake()
