@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] EffekseerEffectAsset effect;
 
     //エフェクトの拡大率
-    private static Vector3 m_effectScale = new Vector3(0.3f, 0.3f, 0.3f);
+    private static Vector3 m_effectScale = new Vector3(0.7f, 0.7f, 0.7f);
 
     
     private void Awake()
@@ -90,6 +90,8 @@ public class PlayerController : MonoBehaviour
         GameObject note = SystemData.PlayData.lanes[index].GetChild(0).gameObject;
         NoteController noteController = note.GetComponent<NoteController>();
         noteController.JudgeHold(Mathf.Abs((float)(triggeredTime - noteController.param.beatEndTime)));
+        
+
     }
 
     private void OnDestroy()

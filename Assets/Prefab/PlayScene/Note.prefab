@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   param: {fileID: 5516645698004144548}
+  judgeStr: {fileID: 7038863784180678490, guid: b769d1f7c09eb3643a39dba08932ae79, type: 3}
 --- !u!114 &5516645698004144548
 MonoBehaviour:
   m_ObjectHideFlags: 0
