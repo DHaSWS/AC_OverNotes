@@ -7,6 +7,9 @@ class SongCell : FancyCell<ItemData>
 {
     [SerializeField] Text message = default;
     [SerializeField] Animator animator = default;
+    [SerializeField] Text textTitle;
+    [SerializeField] Text textArtist;
+
     float currentPosition = 0;
 
     static class AnimatorHash
@@ -16,7 +19,9 @@ class SongCell : FancyCell<ItemData>
 
     public override void UpdateContent(ItemData itemData)
     {
-        message.text = itemData.m_message;
+        message.text = itemData.m_title;
+        textTitle.text = itemData.m_title;
+        textArtist.text = itemData.m_artist;
     }
 
     public override void UpdatePosition(float position)

@@ -4,10 +4,12 @@ using UnityEngine;
 
 class ItemData
 {
-    public string m_message { get; }
+    public string m_title { get; }
+    public string m_artist { get; }
 
-    public ItemData(string message) 
+    public ItemData(string title, string artist) 
     {
-        m_message = message;
+        m_title = title;
+        m_artist = artist;
     }
 }
