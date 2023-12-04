@@ -32,7 +32,7 @@ public class ResultDirector : MonoBehaviour
         GuideMessage.guideLane3 = "ŽŸ‚Ö";
         GuideMessage.guideLane4 = "";
 
-        score.text = Mathf.RoundToInt(ResultData.score).ToString();
+        score.text = Mathf.RoundToInt(ResultData.score).ToString("N0");
         acc.text = (ResultData.score / SystemData.PlayData.allPerfectScore).ToString("000.00%");
         perfectP.text = ResultData.Count[0].ToString();
         perfect.text = ResultData.Count[1].ToString();
