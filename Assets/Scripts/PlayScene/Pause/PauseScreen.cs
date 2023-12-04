@@ -40,7 +40,7 @@ public class PauseScreen : MonoBehaviour
 
         var ESCKey = current[Key.Escape];
 
-        if(ESCKey.wasPressedThisFrame)
+        if(ESCKey.wasPressedThisFrame && false)
         {
             if(pauseCanvas.sortingOrder < 0)
             {
