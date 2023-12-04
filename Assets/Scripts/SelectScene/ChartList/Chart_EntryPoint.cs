@@ -17,12 +17,12 @@ class Chart_EntryPoint : MonoBehaviour
         BeatmapData beatmapData = SystemData.beatmaps[index];
 
         List<ChartInfo> chartInfo = beatmapData.charts;
-
         int count = chartInfo.Count;
 
-        var items = Enumerable.Range(0, count)
+        List<Chart_ItemData> items = Enumerable.Range(0, count)
             .Select(i => new Chart_ItemData(chartInfo[i].diffucult.ToString(), chartInfo[i].level.ToString()))
-            .ToArray();
+            .ToList();
+        items.Add(new Chart_ItemData("Setting", ""));
 
         myScrollView.UpdateData(items);
     }

@@ -13,10 +13,8 @@ namespace OverNotes
             Song_Select,
             Chart_Back,
             Chart,
-            Chart_Select,
-            Setting_Speed_Back,
-            Setting_Speed,
-            Setting_Speed_Select,
+            Setting,
+            FadeIn,
         }
         
         static public SelectRoutine selectRoutine = SelectRoutine.Song;
