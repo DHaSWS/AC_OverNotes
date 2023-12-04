@@ -23,9 +23,9 @@ public class PlaySceneDirector : MonoBehaviour
         PlayContext.lastBeatTime = 0.0d;
         PlayContext.displayTime = 0.0d;
 
-        SystemData.nowTime = 0;
-        SystemData.maxTime = 0;
-        SystemData.PlayData.combo = 0;
+        OverNotes.SystemData.nowTime = 0;
+        OverNotes.SystemData.maxTime = 0;
+        OverNotes.SystemData.PlayData.combo = 0;
 
         ResultData.Count = new int[]
         {
@@ -44,14 +44,14 @@ public class PlaySceneDirector : MonoBehaviour
         GuideMessage.guideLane3 = "";
         GuideMessage.guideLane4 = "";
 
-        SystemData.PlayData.lanes = lanes;
+        OverNotes.SystemData.PlayData.lanes = lanes;
         beatmapLoader.CheckBeatmap();
 
-        notes = SystemData.GetChart().notes;
+        notes = OverNotes.SystemData.GetChart().notes;
 
         LoadChart();
 
-        Debug.Log(SystemData.GetChart().maxCombo);
+        Debug.Log(OverNotes.SystemData.GetChart().maxCombo);
 
         ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { PlayContext.routine = PlayContext.Routine.Ready; });
     }
@@ -76,7 +76,7 @@ public class PlaySceneDirector : MonoBehaviour
             });
         }
 
-        if (SystemData.nowTime > PlayContext.lastBeatTime)
+        if (OverNotes.SystemData.nowTime > PlayContext.lastBeatTime)
         {
             PlayContext.routine = PlayContext.Routine.Finish;
         }

@@ -17,13 +17,13 @@ public class ComboUpdator : MonoBehaviour
 
     private void Update()
     {
-        if(combo != SystemData.PlayData.combo)
+        if(combo != OverNotes.SystemData.PlayData.combo)
         {
-            if(combo < SystemData.PlayData.combo)
+            if(combo < OverNotes.SystemData.PlayData.combo)
             {
                 animator.Play(AnimatorHash.UpdateAnim, 0, 0.0f);
             }
-            combo = SystemData.PlayData.combo;
+            combo = OverNotes.SystemData.PlayData.combo;
         }
     }
 }

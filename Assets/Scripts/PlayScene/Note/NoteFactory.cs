@@ -14,7 +14,7 @@ public class NoteFactory : MonoBehaviour
         )
     {
         // ノーツの生成
-        GameObject note = Instantiate(m_notePrefab, SystemData.PlayData.lanes[column - 1]);
+        GameObject note = Instantiate(m_notePrefab, OverNotes.SystemData.PlayData.lanes[column - 1]);
 
         // ノーツのデータ
         NoteParam noteParam = note.GetComponent<NoteParam>();

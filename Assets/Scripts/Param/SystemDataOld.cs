@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OverNotes
-{
-    public class SystemData : MonoBehaviour
-    {
+namespace OverNotes {
+    public class SystemData : MonoBehaviour {
         // Path
         static readonly public string beatmapPath = Application.dataPath + "\\Beatmaps";
 
@@ -23,20 +21,17 @@ namespace OverNotes
         static public float noteSpeed = 18.0f;
         static public float offset = 0.0f;
 
-        static public BeatmapData GetBeatmap()
-        {
+        static public BeatmapData GetBeatmap() {
             BeatmapData beatmapData = beatmaps[songIndex];
             return beatmapData;
         }
 
-        static public ChartInfo GetChart()
-        {
+        static public ChartInfo GetChart() {
             ChartInfo chartInfo = GetBeatmap().charts[chartIndex];
             return chartInfo;
         }
 
-        public class PlayData
-        {
+        public class PlayData {
             static public float[] JudgmentWidth = new float[]
             {
                 0.024f,

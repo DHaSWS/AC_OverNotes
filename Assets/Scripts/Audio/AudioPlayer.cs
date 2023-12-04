@@ -17,7 +17,7 @@ public class AudioPlayer : MonoBehaviour
 
     private void Start()
     {
-        BeatmapData beatmapData = SystemData.GetBeatmap();
+        BeatmapData beatmapData = OverNotes.SystemData.GetBeatmap();
         audioSource.clip = beatmapData.clip;
         offset = beatmapData.offset;
     }
@@ -29,7 +29,7 @@ public class AudioPlayer : MonoBehaviour
             PlayMusic();
         }
 
-        if(SystemData.nowTime - offset >= audioSource.clip.length)
+        if(OverNotes.SystemData.nowTime - offset >= audioSource.clip.length)
         {
             audioSource.Stop();
             PlayContext.routine = PlayContext.Routine.FadeIn;
@@ -38,16 +38,16 @@ public class AudioPlayer : MonoBehaviour
 
     private void PlayMusic()
     {
-        SystemData.nowTime += Time.deltaTime;
-        double time1f = 1.0f / SystemData.noteSpeed;
+        OverNotes.SystemData.nowTime += Time.deltaTime;
+        double time1f = 1.0f / OverNotes.SystemData.noteSpeed;
         double addTime = time1f * 9.0f;
-        PlayContext.displayTime = SystemData.nowTime + addTime;
+        PlayContext.displayTime = OverNotes.SystemData.nowTime + addTime;
 
-        if(SystemData.nowTime > offset &&
+        if(OverNotes.SystemData.nowTime > offset &&
             !audioSource.isPlaying &&
             PlayContext.routine == PlayContext.Routine.Play)
         {
-            float time = (float)(SystemData.nowTime - offset);
+            float time = (float)(OverNotes.SystemData.nowTime - offset);
             audioSource.time = time;
             audioSource.Play();
         }
