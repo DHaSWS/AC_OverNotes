@@ -29,12 +29,12 @@ public class NoteController : MonoBehaviour
                 }
         }
 
-        double sub = (float)(SystemData.nowTime - param.beatEndTime);
+        double sub = (float)(OverNotes.SystemData.nowTime - param.beatEndTime);
 
-        if(sub > SystemData.PlayData.JudgmentWidth[(int)PlayContext.Judge.Bad])
+        if(sub > OverNotes.SystemData.PlayData.JudgmentWidth[(int)PlayContext.Judge.Bad])
         {
             Destroy(gameObject);
-            SystemData.PlayData.combo = 0;
+            OverNotes.SystemData.PlayData.combo = 0;
             ResultData.Count[(int)PlayContext.Judge.Miss]++;
             ResultData.SetScore(PlayContext.Judge.Miss);
         }
@@ -43,12 +43,12 @@ public class NoteController : MonoBehaviour
     private void UpdateNormal()
     {
         Vector3 position = Vector3.zero;
-        position.y = (float)(param.beatTime - SystemData.nowTime) *
-            SystemData.noteSpeed;
+        position.y = (float)(param.beatTime - OverNotes.SystemData.nowTime) *
+            OverNotes.SystemData.noteSpeed;
         transform.localPosition = position;
 
         float length = 0.0f;
-        length = (float)(param.beatEndTime - param.beatTime) * SystemData.noteSpeed;
+        length = (float)(param.beatEndTime - param.beatTime) * OverNotes.SystemData.noteSpeed;
         length = Mathf.Max(0.25f, length);
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.size = new Vector2(1, length);
@@ -60,12 +60,12 @@ public class NoteController : MonoBehaviour
         transform.localPosition = position;
 
         float length = 0.0f;
-        length = (float)(param.beatEndTime - SystemData.nowTime) * SystemData.noteSpeed;
+        length = (float)(param.beatEndTime - OverNotes.SystemData.nowTime) * OverNotes.SystemData.noteSpeed;
         length = Mathf.Max(0.25f, length);
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.size = new Vector2(1, length);
 
-        if(SystemData.nowTime > param.beatEndTime)
+        if(OverNotes.SystemData.nowTime > param.beatEndTime)
         {
             JudgeHold(0.0f);
         }
@@ -73,7 +73,7 @@ public class NoteController : MonoBehaviour
 
     public void JudgeNormal(float subTime)
     {
-        if (subTime > SystemData.PlayData.JudgmentWidth[(int)PlayContext.Judge.Bad])
+        if (subTime > OverNotes.SystemData.PlayData.JudgmentWidth[(int)PlayContext.Judge.Bad])
         {
             return;
         }
@@ -82,11 +82,11 @@ public class NoteController : MonoBehaviour
 
         if (judge < PlayContext.Judge.Bad)
         {
-            SystemData.PlayData.combo++;
+            OverNotes.SystemData.PlayData.combo++;
         }
         else
         {
-            SystemData.PlayData.combo = 0;
+            OverNotes.SystemData.PlayData.combo = 0;
         }
 
         ResultData.SetScore(judge);
@@ -113,11 +113,11 @@ public class NoteController : MonoBehaviour
 
         if (judge < PlayContext.Judge.Bad)
         {
-            SystemData.PlayData.combo++;
+            OverNotes.SystemData.PlayData.combo++;
         }
         else
         {
-            SystemData.PlayData.combo = 0;
+            OverNotes.SystemData.PlayData.combo = 0;
         }
 
         ResultData.SetScore(judge);

@@ -40,12 +40,12 @@ public class PlayerController : MonoBehaviour
     {
         foreach(var kvp in trace)
         {
-            double triggeredTime = SystemData.nowTime - (Time.realtimeSinceStartup - kvp.time);
+            double triggeredTime = OverNotes.SystemData.nowTime - (Time.realtimeSinceStartup - kvp.time);
             string actionName = kvp.action.name;
             string num = actionName.Substring(4, 1);
             int index = int.Parse(num) - 1;
 
-            if (SystemData.PlayData.lanes[index].childCount == 0)
+            if (OverNotes.SystemData.PlayData.lanes[index].childCount == 0)
             {
                 continue;
             }
@@ -59,12 +59,12 @@ public class PlayerController : MonoBehaviour
 
     public void TriggeredKey(InputAction.CallbackContext context)
     {
-        double triggeredTime = SystemData.nowTime - (Time.realtimeSinceStartup - context.time);
+        double triggeredTime = OverNotes.SystemData.nowTime - (Time.realtimeSinceStartup - context.time);
         string actionName = context.action.name;
         string num = actionName.Substring(4, 1);
         int index = int.Parse(num) - 1;
 
-        if (SystemData.PlayData.lanes[index].childCount == 0)
+        if (OverNotes.SystemData.PlayData.lanes[index].childCount == 0)
         {
             return;
         }
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private void Push(int index, double triggeredTime)
     {
-        GameObject note = SystemData.PlayData.lanes[index].GetChild(0).gameObject;
+        GameObject note = OverNotes.SystemData.PlayData.lanes[index].GetChild(0).gameObject;
         NoteController noteController = note.GetComponent<NoteController>();
 
         se.PlayOneShot(se.clip);
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Released(int index, double triggeredTime)
     {
-        GameObject note = SystemData.PlayData.lanes[index].GetChild(0).gameObject;
+        GameObject note = OverNotes.SystemData.PlayData.lanes[index].GetChild(0).gameObject;
         NoteController noteController = note.GetComponent<NoteController>();
         noteController.JudgeHold(Mathf.Abs((float)(triggeredTime - noteController.param.beatEndTime)));
         

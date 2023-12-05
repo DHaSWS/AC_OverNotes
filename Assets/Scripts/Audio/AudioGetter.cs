@@ -14,7 +14,7 @@ public class AudioGetter : MonoBehaviour
 
     private IEnumerator GenerateMusic()
     {
-        foreach(BeatmapData data in SystemData.beatmaps)
+        foreach(BeatmapData data in OverNotes.SystemData.beatmaps)
         {
             string audioPath = data.audioFilePath;
             string extension = Path.GetExtension(audioPath);

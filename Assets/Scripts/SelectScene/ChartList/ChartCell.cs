@@ -5,8 +5,9 @@ using OverNotes;
 
 class ChartCell : FancyCell<Chart_ItemData>
 {
-    [SerializeField] Text diffucult = default;
+    [SerializeField] Text text = default;
     [SerializeField] Text level = default;
+    [SerializeField] string cellTag = default;
     [SerializeField] Animator animator = default;
     float currentPosition = 0;
 
@@ -17,8 +18,12 @@ class ChartCell : FancyCell<Chart_ItemData>
 
     public override void UpdateContent(Chart_ItemData itemData)
     {
-        diffucult.text = itemData.m_difficult;
-        level.text = "Level : " + itemData.m_level;
+        text.text = itemData.m_text;
+        if(itemData.m_text != "Setting") {
+            level.text = "Level : " + itemData.m_level;
+        } else {
+            level.text = "";
+        }
     }
 
     public override void UpdatePosition(float position)

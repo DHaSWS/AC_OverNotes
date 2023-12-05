@@ -18,8 +18,8 @@ public class SelectSceneDirector : MonoBehaviour
     private void Awake()
     {
         SelectContext.selectRoutine = SelectContext.SelectRoutine.Song;
-        SystemData.songIndex = 0;
-        SystemData.chartIndex = 0;
+        OverNotes.SystemData.songIndex = 0;
+        OverNotes.SystemData.chartIndex = 0;
 
         GuideMessage.guideLane1 = "戻る";
         GuideMessage.guideLane2 = "決定";
@@ -58,16 +58,21 @@ public class SelectSceneDirector : MonoBehaviour
                 break;
             case SelectContext.SelectRoutine.Chart:
                 {
-                    SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting_Speed;
-                    settingAnimator.SetFloat("Speed", 1.0f);
-                    GuideMessage.guideLane3 = "減らす";
-                    GuideMessage.guideLane4 = "増やす";
-                    noteSpeed.text = SystemData.noteSpeed.ToString();
+                    // Settingだったら
+                    if(OverNotes.SystemData.chartIndex == OverNotes.SystemData.GetBeatmap().charts.Count) {
+                        SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
+                        settingAnimator.SetFloat("Speed", 1.0f);
+                        noteSpeed.text = OverNotes.SystemData.noteSpeed.ToString();
+                    } else {
+                        // フェードインを行う
+                        SelectContext.selectRoutine = SelectContext.SelectRoutine.FadeIn;
+                        ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/PlayScene"); });
+                    }
                 }
                 break;
-            case SelectContext.SelectRoutine.Setting_Speed:
+            case SelectContext.SelectRoutine.Setting:
                 {
-                    SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting_Speed_Select;
+                    SelectContext.selectRoutine = SelectContext.SelectRoutine.FadeIn;
                     ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/PlayScene"); });
                 }
                 break;
@@ -89,7 +94,7 @@ public class SelectSceneDirector : MonoBehaviour
                     songAnimator.SetInteger("MoveRoutine", 2);
                 }
                 break;
-            case SelectContext.SelectRoutine.Setting_Speed:
+            case SelectContext.SelectRoutine.Setting:
                 {
                     SelectContext.selectRoutine = SelectContext.SelectRoutine.Chart;
                     settingAnimator.SetFloat("Speed", -1.0f);
@@ -105,11 +110,11 @@ public class SelectSceneDirector : MonoBehaviour
         if (!context.started) return;
         switch (SelectContext.selectRoutine)
         {
-            case SelectContext.SelectRoutine.Setting_Speed:
+            case SelectContext.SelectRoutine.Setting:
                 {
-                    SystemData.noteSpeed += 0.5f;
-                    SystemData.noteSpeed = Mathf.Clamp(SystemData.noteSpeed, 1.0f, 30.0f);
-                    noteSpeed.text = SystemData.noteSpeed.ToString();
+                    OverNotes.SystemData.noteSpeed += 0.5f;
+                    OverNotes.SystemData.noteSpeed = Mathf.Clamp(OverNotes.SystemData.noteSpeed, 1.0f, 30.0f);
+                    noteSpeed.text = OverNotes.SystemData.noteSpeed.ToString();
 
                     break;
                 }
@@ -120,11 +125,11 @@ public class SelectSceneDirector : MonoBehaviour
         if (!context.started) return;
         switch (SelectContext.selectRoutine)
         {
-            case SelectContext.SelectRoutine.Setting_Speed:
+            case SelectContext.SelectRoutine.Setting:
                 {
-                    SystemData.noteSpeed -= 0.5f;
-                    SystemData.noteSpeed = Mathf.Clamp(SystemData.noteSpeed, 1.0f, 30.0f);
-                    noteSpeed.text = SystemData.noteSpeed.ToString();
+                    OverNotes.SystemData.noteSpeed -= 0.5f;
+                    OverNotes.SystemData.noteSpeed = Mathf.Clamp(OverNotes.SystemData.noteSpeed, 1.0f, 30.0f);
+                    noteSpeed.text = OverNotes.SystemData.noteSpeed.ToString();
 
                     break;
                 }

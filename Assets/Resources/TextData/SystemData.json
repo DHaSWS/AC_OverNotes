@@ -1,0 +1,24 @@
+{
+    "BeatmapPath": "\\Beatmaps",
+    "JudgementRange": [
+        0.024,
+        0.064,
+        0.096,
+        0.128,
+        0.192
+    ],
+    "ScoreRate": [
+        1.01,
+        1.00,
+        0.07,
+        0.04,
+        0.0,
+        0.0
+    ],
+    "AllPerfectScore": 1000000,
+    "SongIndex": 0,
+    "ChartIndex": 0,
+    "NowTime": 0,
+    "NoteSpeed": 18.0,
+    "Offset": 0
+}

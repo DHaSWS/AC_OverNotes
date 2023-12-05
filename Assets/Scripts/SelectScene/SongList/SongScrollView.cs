@@ -35,12 +35,12 @@ class SongScrollView : FancyScrollView<ItemData>
 
     void UpdateSelection(int index)
     {
-        if (SystemData.songIndex == index)
+        if (OverNotes.SystemData.songIndex == index)
         {
             return;
         }
 
-        SystemData.songIndex = index;
+        OverNotes.SystemData.songIndex = index;
 
         prevIndex = index;
         Refresh();
@@ -51,7 +51,7 @@ class SongScrollView : FancyScrollView<ItemData>
         if (!context.started) return;
 
         Debug.Log("SelectNextCell");
-        SelectCell(SystemData.songIndex + 1);
+        SelectCell(OverNotes.SystemData.songIndex + 1);
     }
 
     public void SelectPrevCell(InputAction.CallbackContext context)
@@ -59,17 +59,17 @@ class SongScrollView : FancyScrollView<ItemData>
         if (!context.started) return;
 
         Debug.Log("SelectPrevCell");
-        SelectCell(SystemData.songIndex - 1);
+        SelectCell(OverNotes.SystemData.songIndex - 1);
     }
 
     public void SelectCell(int index)
     {
-        if (SelectContext.selectRoutine != SelectContext.SelectRoutine.Song || index == SystemData.songIndex)
+        if (SelectContext.selectRoutine != SelectContext.SelectRoutine.Song || index == OverNotes.SystemData.songIndex)
         {
             return;
         }
 
-        int clampedIndex = Mathf.Clamp(index, 0, SystemData.beatmaps.Count - 1);
+        int clampedIndex = Mathf.Clamp(index, 0, OverNotes.SystemData.beatmaps.Count - 1);
 
         Debug.Log(clampedIndex);
         UpdateSelection(clampedIndex);

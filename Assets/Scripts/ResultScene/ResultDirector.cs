@@ -32,8 +32,8 @@ public class ResultDirector : MonoBehaviour
         GuideMessage.guideLane3 = "ŽŸ‚Ö";
         GuideMessage.guideLane4 = "";
 
-        score.text = Mathf.RoundToInt(ResultData.score).ToString();
-        acc.text = (ResultData.score / SystemData.PlayData.allPerfectScore).ToString("000.00%");
+        score.text = Mathf.RoundToInt(ResultData.score).ToString("N0");
+        acc.text = (ResultData.score / OverNotes.SystemData.PlayData.allPerfectScore).ToString("000.00%");
         perfectP.text = ResultData.Count[0].ToString();
         perfect.text = ResultData.Count[1].ToString();
         great.text = ResultData.Count[2].ToString();
@@ -41,9 +41,9 @@ public class ResultDirector : MonoBehaviour
         bad.text = ResultData.Count[4].ToString();
         miss.text = ResultData.Count[5].ToString();
 
-        title.text = SystemData.GetBeatmap().title;
-        artist.text = SystemData.GetBeatmap().artist;
-        chart.text = SystemData.GetChart().diffucult.ToString() + " " + SystemData.GetChart().level;
+        title.text = OverNotes.SystemData.GetBeatmap().title;
+        artist.text = OverNotes.SystemData.GetBeatmap().artist;
+        chart.text = OverNotes.SystemData.GetChart().diffucult.ToString() + " " + OverNotes.SystemData.GetChart().level;
 
         ONFade.SetFadeOut(this, 0.5f, fadeImage, () =>
         {
