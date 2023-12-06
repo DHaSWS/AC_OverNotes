@@ -11,7 +11,8 @@
                     "id": "6a1fd1c1-2353-46e7-861b-7c83d0c3311b",
                     "expectedControlType": "Key",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Lane2",
@@ -19,7 +20,8 @@
                     "id": "e49a988c-c611-472d-9e8a-5aeac6762ddd",
                     "expectedControlType": "Key",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Lane3",
@@ -27,7 +29,8 @@
                     "id": "cc0e6cb2-5123-45d4-b94a-3a14e8376185",
                     "expectedControlType": "Key",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Lane4",
@@ -35,7 +38,8 @@
                     "id": "acf1a0af-8fcf-492b-ad2a-b3d89c4e79cd",
                     "expectedControlType": "Key",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Test",
@@ -43,7 +47,8 @@
                     "id": "14c9015e-1009-4cd2-a016-b0bc68b4bf05",
                     "expectedControlType": "Key",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -53,7 +58,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Lane1",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -64,7 +69,7 @@
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Lane2",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -75,7 +80,7 @@
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Lane3",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -97,7 +102,7 @@
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Lane4",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -105,5 +110,11 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": []
+        }
+    ]
 }

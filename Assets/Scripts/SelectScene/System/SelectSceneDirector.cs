@@ -61,7 +61,7 @@ public class SelectSceneDirector : MonoBehaviour
                     // Settingだったら
                     if(OverNotes.SystemData.chartIndex == OverNotes.SystemData.GetBeatmap().charts.Count) {
                         SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
-                        settingAnimator.SetFloat("Speed", 1.0f);
+                        settingAnimator.SetFloat("AlphaSpeed", 1.0f);
                         noteSpeed.text = OverNotes.SystemData.noteSpeed.ToString();
                     } else {
                         // フェードインを行う
@@ -97,7 +97,7 @@ public class SelectSceneDirector : MonoBehaviour
             case SelectContext.SelectRoutine.Setting:
                 {
                     SelectContext.selectRoutine = SelectContext.SelectRoutine.Chart;
-                    settingAnimator.SetFloat("Speed", -1.0f);
+                    settingAnimator.SetFloat("AlphaSpeed", -1.0f);
                     GuideMessage.guideLane3 = "前へ";
                     GuideMessage.guideLane4 = "次へ";
                 }

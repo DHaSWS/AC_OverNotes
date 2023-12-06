@@ -16,6 +16,8 @@ public class OverNotesSystem : MonoBehaviour {
     public int SongIndex = SystemConstants.SongIndex;
     public int ChartIndex = SystemConstants.ChartIndex;
     public double NowTime = SystemConstants.NowTime;
+
+    // Setting
     public float NoteSpeed = SystemConstants.NoteSpeed;
     public float Offset = SystemConstants.Offset;
 
