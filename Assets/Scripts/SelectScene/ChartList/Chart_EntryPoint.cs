@@ -12,9 +12,11 @@ class Chart_EntryPoint : MonoBehaviour
     {
         Debug.Log("Enabled");
 
-        int index = OverNotes.SystemData.songIndex;
+        OverNotesSystem system = OverNotesSystem.Instance;
 
-        BeatmapData beatmapData = OverNotes.SystemData.beatmaps[index];
+        int index = system.SongIndex;
+
+        BeatmapData beatmapData = system.Beatmaps[index];
 
         List<ChartInfo> chartInfo = beatmapData.charts;
         int count = chartInfo.Count;

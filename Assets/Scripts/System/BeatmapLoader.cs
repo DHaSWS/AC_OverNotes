@@ -1,4 +1,5 @@
 using OverNotes;
+using OverNotes.System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +11,8 @@ public class BeatmapLoader : MonoBehaviour
 
     public void CheckBeatmap()
     {
-        if (OverNotes.SystemData.beatmapPath == null)
+        OverNotesSystem system = OverNotesSystem.Instance;
+        if (system.BeatmapPath == null)
         {
             Debug.LogError("BeatmapPath is not set");
         }
@@ -20,7 +22,7 @@ public class BeatmapLoader : MonoBehaviour
             Debug.LogError("AudioGetter is not set");
         }
 
-        if (OverNotes.SystemData.beatmaps.Count == 0)
+        if (system.Beatmaps.Count == 0)
         {
             LoadBeatmap();
         }
@@ -28,7 +30,7 @@ public class BeatmapLoader : MonoBehaviour
 
     private void LoadBeatmap()
     {
-        string[] folders = Directory.GetDirectories(OverNotes.SystemData.beatmapPath);
+        string[] folders = Directory.GetDirectories(OverNotesSystem.Instance.BeatmapPath);
 
         foreach (string folder in folders)
         {
@@ -48,7 +50,7 @@ public class BeatmapLoader : MonoBehaviour
             LoadFile(file, data);
         }
 
-        OverNotes.SystemData.beatmaps.Add(data);
+        OverNotesSystem.Instance.Beatmaps.Add(data);
     }
 
     private void LoadFile(string filePath, BeatmapData data)

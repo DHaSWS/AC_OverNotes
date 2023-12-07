@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Processors;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using OverNotes.System;
 
 public class SelectSceneDirector : MonoBehaviour
 {
@@ -18,8 +19,9 @@ public class SelectSceneDirector : MonoBehaviour
     private void Awake()
     {
         SelectContext.selectRoutine = SelectContext.SelectRoutine.Song;
-        OverNotes.SystemData.songIndex = 0;
-        OverNotes.SystemData.chartIndex = 0;
+
+        OverNotesSystem.Instance.ChartIndex = 0;
+        OverNotesSystem.Instance.SongIndex = 0;
 
         GuideMessage.guideLane1 = "戻る";
         GuideMessage.guideLane2 = "決定";
@@ -47,6 +49,8 @@ public class SelectSceneDirector : MonoBehaviour
         }
         Debug.Log("Select");
 
+        OverNotesSystem system = OverNotesSystem.Instance;
+
         switch (SelectContext.selectRoutine)
         {
             case SelectContext.SelectRoutine.Song:
@@ -59,10 +63,10 @@ public class SelectSceneDirector : MonoBehaviour
             case SelectContext.SelectRoutine.Chart:
                 {
                     // Settingだったら
-                    if(OverNotes.SystemData.chartIndex == OverNotes.SystemData.GetBeatmap().charts.Count) {
-                        SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
-                        settingAnimator.SetFloat("AlphaSpeed", 1.0f);
-                        noteSpeed.text = OverNotes.SystemData.noteSpeed.ToString();
+                    if(system.ChartIndex == system.GetBeatmap().charts.Count) {
+                        //SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
+                        //settingAnimator.SetFloat("AlphaSpeed", 1.0f);
+                        //noteSpeed.text = system.SettingData["NoteSpeed"].ToString();
                     } else {
                         // フェードインを行う
                         SelectContext.selectRoutine = SelectContext.SelectRoutine.FadeIn;
@@ -108,14 +112,20 @@ public class SelectSceneDirector : MonoBehaviour
     public void AddValue(InputAction.CallbackContext context)
     {
         if (!context.started) return;
+
+        OverNotesSystem system = OverNotesSystem.Instance;
+        
         switch (SelectContext.selectRoutine)
         {
             case SelectContext.SelectRoutine.Setting:
                 {
-                    OverNotes.SystemData.noteSpeed += 0.5f;
-                    OverNotes.SystemData.noteSpeed = Mathf.Clamp(OverNotes.SystemData.noteSpeed, 1.0f, 30.0f);
-                    noteSpeed.text = OverNotes.SystemData.noteSpeed.ToString();
+                    float nowNoteSpeed = (float)system.SettingData["NoteSpeed"];
 
+                    nowNoteSpeed += 0.5f;
+                    nowNoteSpeed = Mathf.Clamp(nowNoteSpeed, 1.0f, 30.0f);
+                    noteSpeed.text = nowNoteSpeed.ToString();
+
+                    system.SettingData["NoteSpeed"] = nowNoteSpeed;
                     break;
                 }
         }
@@ -123,13 +133,20 @@ public class SelectSceneDirector : MonoBehaviour
     public void SubValue(InputAction.CallbackContext context)
     {
         if (!context.started) return;
+
+        OverNotesSystem system = OverNotesSystem.Instance;
+
         switch (SelectContext.selectRoutine)
         {
             case SelectContext.SelectRoutine.Setting:
                 {
-                    OverNotes.SystemData.noteSpeed -= 0.5f;
-                    OverNotes.SystemData.noteSpeed = Mathf.Clamp(OverNotes.SystemData.noteSpeed, 1.0f, 30.0f);
-                    noteSpeed.text = OverNotes.SystemData.noteSpeed.ToString();
+                    float nowNoteSpeed = (float)system.SettingData["NoteSpeed"];
+
+                    nowNoteSpeed -= 0.5f;
+                    nowNoteSpeed = Mathf.Clamp(nowNoteSpeed, 1.0f, 30.0f);
+                    noteSpeed.text = nowNoteSpeed.ToString();
+
+                    system.SettingData["NoteSpeed"] = nowNoteSpeed;
 
                     break;
                 }

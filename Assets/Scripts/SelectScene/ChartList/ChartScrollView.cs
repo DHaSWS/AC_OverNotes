@@ -34,12 +34,14 @@ class ChartScrollView : FancyScrollView<Chart_ItemData>
 
     void UpdateSelection(int index)
     {
-        if (OverNotes.SystemData.chartIndex == index)
+        OverNotesSystem system = OverNotesSystem.Instance;
+
+        if (system.ChartIndex == index)
         {
             return;
         }
 
-        OverNotes.SystemData.chartIndex = index;
+        system.ChartIndex = index;
         Refresh();
     }
 
@@ -48,7 +50,7 @@ class ChartScrollView : FancyScrollView<Chart_ItemData>
         if (!context.started) return;
 
         Debug.Log("SelectNextCell");
-        SelectCell(OverNotes.SystemData.chartIndex + 1);
+        SelectCell(OverNotesSystem.Instance.ChartIndex + 1);
     }
 
     public void SelectPrevCell(InputAction.CallbackContext context)
@@ -56,12 +58,12 @@ class ChartScrollView : FancyScrollView<Chart_ItemData>
         if (!context.started) return;
 
         Debug.Log("SelectPrevCell");
-        SelectCell(OverNotes.SystemData.chartIndex - 1);
+        SelectCell(OverNotesSystem.Instance.ChartIndex - 1);
     }
 
     public void SelectCell(int index)
     {
-        if (SelectContext.selectRoutine != SelectContext.SelectRoutine.Chart || index == OverNotes.SystemData.chartIndex)
+        if (SelectContext.selectRoutine != SelectContext.SelectRoutine.Chart || index == OverNotesSystem.Instance.ChartIndex)
         {
             return;
         }

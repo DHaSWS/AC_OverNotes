@@ -3,6 +3,7 @@ using System.Linq;
 using FancyScrollView;
 using System.Collections.Generic;
 using OverNotes;
+using OverNotes.System;
 using EasingCore;
 using UnityEngine.InputSystem;
 
@@ -35,12 +36,14 @@ class SongScrollView : FancyScrollView<ItemData>
 
     void UpdateSelection(int index)
     {
-        if (OverNotes.SystemData.songIndex == index)
+        OverNotesSystem system = OverNotesSystem.Instance;
+
+        if (system.SongIndex == index)
         {
             return;
         }
 
-        OverNotes.SystemData.songIndex = index;
+        system.SongIndex = index;
 
         prevIndex = index;
         Refresh();
@@ -51,7 +54,7 @@ class SongScrollView : FancyScrollView<ItemData>
         if (!context.started) return;
 
         Debug.Log("SelectNextCell");
-        SelectCell(OverNotes.SystemData.songIndex + 1);
+        SelectCell(OverNotesSystem.Instance.SongIndex + 1);
     }
 
     public void SelectPrevCell(InputAction.CallbackContext context)
@@ -59,17 +62,19 @@ class SongScrollView : FancyScrollView<ItemData>
         if (!context.started) return;
 
         Debug.Log("SelectPrevCell");
-        SelectCell(OverNotes.SystemData.songIndex - 1);
+        SelectCell(OverNotesSystem.Instance.SongIndex - 1);
     }
 
     public void SelectCell(int index)
     {
-        if (SelectContext.selectRoutine != SelectContext.SelectRoutine.Song || index == OverNotes.SystemData.songIndex)
+        OverNotesSystem system = OverNotesSystem.Instance;
+
+        if (SelectContext.selectRoutine != SelectContext.SelectRoutine.Song || index == system.SongIndex)
         {
             return;
         }
 
-        int clampedIndex = Mathf.Clamp(index, 0, OverNotes.SystemData.beatmaps.Count - 1);
+        int clampedIndex = Mathf.Clamp(index, 0, system.Beatmaps.Count - 1);
 
         Debug.Log(clampedIndex);
         UpdateSelection(clampedIndex);

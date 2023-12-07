@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
 namespace OverNotes.System {
     public class SystemConstants {
         public const string BeatmapPath = "\\Beatmaps";
@@ -24,11 +27,19 @@ namespace OverNotes.System {
         public const float NoteSpeed = 15.0f;       // ノーツのスピード
         public const float Offset = 0.0f;           // オフセット
         public const float LaneCoverSize = 0.0f;    // レーンカバーのサイズ
-        // -- MenuBGM
-        public const float BPMRate = 0.7f;          // 曲のボリューム
+        public const float BGMRate = 0.7f;          // 曲のボリューム
         public const float SERate = 0.7f;           // 効果音のボリューム
-        // -- PlayBGM
-        public const float PlayBPMRate = 0.7f;      // 曲のボリューム
-        public const float PlaySERate = 0.7f;       // 効果音のボリューム
+        public const float PlaySERate = 0.7f;       // プレイ時の効果音のボリューム
+
+        // GuideMessage
+        public Dictionary<string, string> SettingItemGuideMessage = new() {
+            { "NoteSpeed", "ノーツの速度を変えます"},
+            { "Offset", "曲と譜面のズレを調節します"},
+            { "LaneCoverSize", "レーン上部を隠すカバーの縦幅を変えます"},
+            { "BGMRate", "曲の大きさを変えます"},
+            { "SERate", "効果音の大きさを変えます"},
+            { "PlaySERate", "プレイ時の効果音の大きさを変えます(SERateとは別)"},
+            { "KeyBind", "現在のキー設定を変えます"}
+        };
     }
 }
