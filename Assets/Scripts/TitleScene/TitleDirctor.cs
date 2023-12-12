@@ -52,8 +52,8 @@ public class TitleDirctor : MonoBehaviour
 
         Math.Clamp(select, 0, 1);
 
-        //スペースキーが押された場合フェードインし曲選択に移行
-        if (spaceKey.wasPressedThisFrame)
+		//スペースキーが押された場合フェードインし曲選択に移行
+        if (current.fKey.wasPressedThisFrame)
 			ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/SelectScene"); });
 		else if(ESCKey.wasPressedThisFrame )
 		{
