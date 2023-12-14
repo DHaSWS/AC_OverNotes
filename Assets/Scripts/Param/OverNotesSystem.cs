@@ -20,14 +20,11 @@ public class OverNotesSystem : MonoBehaviour {
     public double NowTime = SystemConstants.NowTime;
 
     // Setting
-    public Dictionary<string, object> SettingData = new() {
-        { "NoteSpeed", SystemConstants.NoteSpeed },
-        { "Offset", SystemConstants.Offset },
-        { "LaneCoverSize", SystemConstants.LaneCoverSize },
-        { "BGMRate", SystemConstants.BGMRate },
-        { "SERate", SystemConstants.SERate },
-        { "PlaySERate", SystemConstants.PlaySERate },
-        { "KeyBind", null }
+    public List<SettingItem> settingItems = new() {
+        new SettingItemValue("Value0", "値テスト", 0, 1, 0, 10),
+        new SettingItemValue("Value1", "値テスト", 0.0f, 0.5f, 0.0f, 10.0f),
+        new SettingItemToggle("Toggle0", "トグルテスト", false),
+        new SettingItemToggle("Toggle1", "トグルテスト", true),
     };
 
     public float NoteSpeed = SystemConstants.NoteSpeed;

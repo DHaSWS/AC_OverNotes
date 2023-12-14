@@ -49,7 +49,6 @@ class ChartScrollView : FancyScrollView<Chart_ItemData>
     {
         if (!context.started) return;
 
-        Debug.Log("SelectNextCell");
         SelectCell(OverNotesSystem.Instance.ChartIndex + 1);
     }
 
@@ -57,7 +56,6 @@ class ChartScrollView : FancyScrollView<Chart_ItemData>
     {
         if (!context.started) return;
 
-        Debug.Log("SelectPrevCell");
         SelectCell(OverNotesSystem.Instance.ChartIndex - 1);
     }
 
@@ -67,6 +65,8 @@ class ChartScrollView : FancyScrollView<Chart_ItemData>
         {
             return;
         }
+
+        Debug.Log("Chart:SelectCell");
 
         UpdateSelection(index);
         scroller.ScrollTo(index, 0.5f, Ease.OutCubic);

@@ -93,7 +93,6 @@ public class ONFade : MonoBehaviour
         while (value >= 0.0f)
         {
             value = 1.0f - nowTime / time;
-            Debug.Log(value);
             image.color = new Color(
                 image.color.r,
                 image.color.g,

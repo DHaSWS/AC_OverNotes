@@ -32,14 +32,31 @@ namespace OverNotes.System {
         public const float PlaySERate = 0.7f;       // プレイ時の効果音のボリューム
 
         // GuideMessage
-        public Dictionary<string, string> SettingItemGuideMessage = new() {
-            { "NoteSpeed", "ノーツの速度を変えます"},
-            { "Offset", "曲と譜面のズレを調節します"},
-            { "LaneCoverSize", "レーン上部を隠すカバーの縦幅を変えます"},
-            { "BGMRate", "曲の大きさを変えます"},
-            { "SERate", "効果音の大きさを変えます"},
-            { "PlaySERate", "プレイ時の効果音の大きさを変えます(SERateとは別)"},
-            { "KeyBind", "現在のキー設定を変えます"}
+        //public Dictionary<string, string> SettingItemGuideMessage = new() {
+        //    { "NoteSpeed", "ノーツの速度を変えます"},
+        //    { "Offset", "曲と譜面のズレを調節します"},
+        //    { "LaneCoverSize", "レーン上部を隠すカバーの縦幅を変えます"},
+        //    { "BGMRate", "曲の大きさを変えます"},
+        //    { "SERate", "効果音の大きさを変えます"},
+        //    { "PlaySERate", "プレイ時の効果音の大きさを変えます(SERateとは別)"},
+        //    { "KeyBind", "現在のキー設定を変えます"}
+        //};
+
+        // GuideName
+        public enum GuideName {
+            NoteSpeed,
+            Offset,
+            LaneCoverSize
+        };
+
+        public readonly List<string> SettingItemGuideMessage = new() {
+            "ノーツの速度を変えます",
+            "曲と譜面のズレを調節します",
+            "レーン上部を隠すカバーの縦幅を変えます",
+            "曲の大きさを変えます",
+            "効果音の大きさを変えます",
+            "プレイ時の効果音の大きさを変えます(SERateとは別)",
+            "現在のキー設定を変えます",
         };
     }
 }

@@ -14,6 +14,7 @@ namespace OverNotes
             Chart_Back,
             Chart,
             Setting,
+            Setting_Value,
             FadeIn,
         }
         

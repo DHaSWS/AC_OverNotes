@@ -53,7 +53,6 @@ class SongScrollView : FancyScrollView<ItemData>
     {
         if (!context.started) return;
 
-        Debug.Log("SelectNextCell");
         SelectCell(OverNotesSystem.Instance.SongIndex + 1);
     }
 
@@ -61,7 +60,6 @@ class SongScrollView : FancyScrollView<ItemData>
     {
         if (!context.started) return;
 
-        Debug.Log("SelectPrevCell");
         SelectCell(OverNotesSystem.Instance.SongIndex - 1);
     }
 
@@ -73,6 +71,8 @@ class SongScrollView : FancyScrollView<ItemData>
         {
             return;
         }
+
+        Debug.Log("Song:SelectCell");
 
         int clampedIndex = Mathf.Clamp(index, 0, system.Beatmaps.Count - 1);
 

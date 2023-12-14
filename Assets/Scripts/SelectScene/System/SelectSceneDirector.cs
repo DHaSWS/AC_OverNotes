@@ -15,20 +15,23 @@ public class SelectSceneDirector : MonoBehaviour
     [SerializeField] private GameObject chartList;
     [SerializeField] private Image fadeImage;
     [SerializeField] private BeatmapLoader beatmapLoader;
+    [Space] // ----------------------------------------------------------------
+    [Header("Setting")]
+    [SerializeField] private SettingPanelScrollView settingPanelScrollView;
 
-    private void Awake()
+    private void OnEnable()
     {
         SelectContext.selectRoutine = SelectContext.SelectRoutine.Song;
 
         OverNotesSystem.Instance.ChartIndex = 0;
         OverNotesSystem.Instance.SongIndex = 0;
+        beatmapLoader.CheckBeatmap();
 
         GuideMessage.guideLane1 = "戻る";
         GuideMessage.guideLane2 = "決定";
         GuideMessage.guideLane3 = "前へ";
         GuideMessage.guideLane4 = "次へ";
 
-        beatmapLoader.CheckBeatmap();
         ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { });
     }
 
@@ -64,22 +67,22 @@ public class SelectSceneDirector : MonoBehaviour
                 {
                     // Settingだったら
                     if(system.ChartIndex == system.GetBeatmap().charts.Count) {
-                        //SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
-                        //settingAnimator.SetFloat("AlphaSpeed", 1.0f);
-                        //noteSpeed.text = system.SettingData["NoteSpeed"].ToString();
+                        SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
+                        // Fade out
+                        SettingPanelParams.IsFadeIn = false;
                     } else {
                         // フェードインを行う
                         SelectContext.selectRoutine = SelectContext.SelectRoutine.FadeIn;
                         ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/PlayScene"); });
                     }
+                    break;
                 }
-                break;
-            case SelectContext.SelectRoutine.Setting:
-                {
-                    SelectContext.selectRoutine = SelectContext.SelectRoutine.FadeIn;
-                    ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/PlayScene"); });
+            case SelectContext.SelectRoutine.Setting: {
+                    if(settingPanelScrollView != null) {
+                        settingPanelScrollView.Select();
+                    }
+                    break;
                 }
-                break;
         }
     }
     public void Back(InputAction.CallbackContext context)
@@ -101,11 +104,14 @@ public class SelectSceneDirector : MonoBehaviour
             case SelectContext.SelectRoutine.Setting:
                 {
                     SelectContext.selectRoutine = SelectContext.SelectRoutine.Chart;
-                    settingAnimator.SetFloat("AlphaSpeed", -1.0f);
-                    GuideMessage.guideLane3 = "前へ";
-                    GuideMessage.guideLane4 = "次へ";
+                    // Fade in
+                    SettingPanelParams.IsFadeIn = true;
                 }
                 break;
+            case SelectContext.SelectRoutine.Setting_Value: {
+                    SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
+                    break;
+                }
         }
     }
 
@@ -119,13 +125,6 @@ public class SelectSceneDirector : MonoBehaviour
         {
             case SelectContext.SelectRoutine.Setting:
                 {
-                    float nowNoteSpeed = (float)system.SettingData["NoteSpeed"];
-
-                    nowNoteSpeed += 0.5f;
-                    nowNoteSpeed = Mathf.Clamp(nowNoteSpeed, 1.0f, 30.0f);
-                    noteSpeed.text = nowNoteSpeed.ToString();
-
-                    system.SettingData["NoteSpeed"] = nowNoteSpeed;
                     break;
                 }
         }
@@ -140,14 +139,6 @@ public class SelectSceneDirector : MonoBehaviour
         {
             case SelectContext.SelectRoutine.Setting:
                 {
-                    float nowNoteSpeed = (float)system.SettingData["NoteSpeed"];
-
-                    nowNoteSpeed -= 0.5f;
-                    nowNoteSpeed = Mathf.Clamp(nowNoteSpeed, 1.0f, 30.0f);
-                    noteSpeed.text = nowNoteSpeed.ToString();
-
-                    system.SettingData["NoteSpeed"] = nowNoteSpeed;
-
                     break;
                 }
         }
