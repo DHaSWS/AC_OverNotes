@@ -13,7 +13,6 @@ public class TitleDirctor : MonoBehaviour
 	[SerializeField] private Image fadeImage;
 	[SerializeField] private TextMeshProUGUI pushSpaceKey;
 	private float feedColor = 1.0f;
-	private int select = 0;
 
     [SerializeField] private AudioSource audio;
 
@@ -38,20 +37,7 @@ public class TitleDirctor : MonoBehaviour
 
 		var fKey = current[Key.F];
 		var ESCKey = current[Key.Escape];
-        var upKey = current[Key.UpArrow];
-        var downKey = current[Key.DownArrow];
-
-        if (upKey.wasPressedThisFrame)
-		{
-			select++;
-
-        }
-        else if (downKey.wasPressedThisFrame)
-        {
-			select--;
-        }
-
-        Math.Clamp(select, 0, 1);
+        
 
         //スペースキーが押された場合フェードインし曲選択に移行
         if (fKey.wasPressedThisFrame)
