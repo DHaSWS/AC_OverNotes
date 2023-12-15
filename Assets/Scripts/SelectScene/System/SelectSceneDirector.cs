@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.Processors;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using OverNotes.System;
+using System;
 
 public class SelectSceneDirector : MonoBehaviour
 {
@@ -74,14 +75,17 @@ public class SelectSceneDirector : MonoBehaviour
                     }
                     break;
                 }
-            case SelectContext.SelectRoutine.Setting: {
-                    if(settingPanelScrollView != null) {
+            case SelectContext.SelectRoutine routine when 
+                routine == SelectContext.SelectRoutine.Setting || 
+                routine == SelectContext.SelectRoutine.Setting_Value: {
+                    if (settingPanelScrollView != null) {
                         settingPanelScrollView.Select();
                     }
                     break;
                 }
         }
     }
+
     public void Back(InputAction.CallbackContext context)
     {
         if (!context.started)
@@ -105,7 +109,9 @@ public class SelectSceneDirector : MonoBehaviour
                 }
                 break;
             case SelectContext.SelectRoutine.Setting_Value: {
-                    SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
+                    if(settingPanelScrollView != null) {
+                        settingPanelScrollView.Back();
+                    }
                     break;
                 }
         }
@@ -119,8 +125,11 @@ public class SelectSceneDirector : MonoBehaviour
         
         switch (SelectContext.selectRoutine)
         {
-            case SelectContext.SelectRoutine.Setting:
+            case SelectContext.SelectRoutine.Setting_Value:
                 {
+                    if (settingPanelScrollView != null) {
+                        settingPanelScrollView.AddValue();
+                    }
                     break;
                 }
         }
@@ -133,8 +142,10 @@ public class SelectSceneDirector : MonoBehaviour
 
         switch (SelectContext.selectRoutine)
         {
-            case SelectContext.SelectRoutine.Setting:
-                {
+            case SelectContext.SelectRoutine.Setting_Value: {
+                    if (settingPanelScrollView != null) {
+                        settingPanelScrollView.SubValue();
+                    }
                     break;
                 }
         }

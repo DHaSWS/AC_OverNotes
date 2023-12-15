@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace OverNotes.System {
     public class SettingItemToggle : SettingItem {
@@ -21,6 +22,10 @@ namespace OverNotes.System {
 
         public override object GetValue() {
             return Value;
+        }
+
+        public override void Back() {
+            throw new Exception("Toggle‚ª‚±‚±‚É—ˆ‚é‚Ì‚Í‚ ‚è‚¦‚È‚¢‚æ");
         }
     }
 }

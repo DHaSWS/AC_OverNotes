@@ -1,9 +1,12 @@
 using System;
+using UnityEngine;
 
 namespace OverNotes.System {
     public class SettingItemValue : SettingItem {
         // 現在の値
         public object Value;
+        // 値 管理用
+        private object _oldValue;
         // 値の型
         private Type _valueType;
 
@@ -43,6 +46,9 @@ namespace OverNotes.System {
         }
 
         private dynamic Calculate(dynamic value, dynamic deltaValue, dynamic maxValue, dynamic minValue) {
+            if(maxValue < minValue) {
+                throw new ArgumentException("minValue must be less than or equal to maxValue");
+            }
             return Math.Clamp(value + deltaValue, minValue, maxValue);
         }
 
@@ -52,7 +58,7 @@ namespace OverNotes.System {
             dynamic convertedMaxValue = Convert.ChangeType(_maxValue, _valueType);
             dynamic convertedMinValue = Convert.ChangeType(_minValue, _valueType);
 
-            convertedValue = Calculate(convertedValue, convertedDeltaValue * -1, convertedMaxValue, convertedMinValue);
+            Value = Calculate(convertedValue, convertedDeltaValue * -1, convertedMaxValue, convertedMinValue);
         }
 
         public override void Plus() {
@@ -61,7 +67,7 @@ namespace OverNotes.System {
             dynamic convertedMaxValue = Convert.ChangeType(_maxValue, _valueType);
             dynamic convertedMinValue = Convert.ChangeType(_minValue, _valueType);
 
-            convertedValue = Calculate(convertedValue, convertedDeltaValue, convertedMaxValue, convertedMinValue);
+            Value = Calculate(convertedValue, convertedDeltaValue, convertedMaxValue, convertedMinValue);
         }
 
         public override void Select() {
@@ -70,7 +76,10 @@ namespace OverNotes.System {
                         SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting_Value;
                         SettingPanelParams.IsTriggered = true;
 
-                        GuideMessage.guideLane1 = "";
+                        // Save old value
+                        _oldValue = Value;
+
+                        GuideMessage.guideLane1 = "破棄";
                         GuideMessage.guideLane2 = "保存";
                         GuideMessage.guideLane3 = "減らす";
                         GuideMessage.guideLane4 = "増やす";
@@ -86,6 +95,15 @@ namespace OverNotes.System {
                         break;
                     }
             }
+        }
+
+        public override void Back() {
+            Value = _oldValue;
+            GuideMessage.guideLane1 = "戻る";
+            GuideMessage.guideLane2 = "決定";
+            GuideMessage.guideLane3 = "前へ";
+            GuideMessage.guideLane4 = "次へ";
+            SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
         }
 
         public override object GetValue() {

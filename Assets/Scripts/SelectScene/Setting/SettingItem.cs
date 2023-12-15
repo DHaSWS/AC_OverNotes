@@ -14,6 +14,7 @@ namespace OverNotes.System {
         }
 
         public abstract void Select();
+        public abstract void Back();
         public abstract void Plus();
         public abstract void Minus();
 

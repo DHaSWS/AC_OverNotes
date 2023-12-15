@@ -1,0 +1,51 @@
+BeatmapPath	\\Beatmaps
+JudgementRange	0.024	0.064	0.096	0.128	0.192
+ScoreRate	1.01	1.0	0.7	0.4	0.0	0.0
+SongIndex	0
+ChartIndex	0
+NowTime	0
+
+Name	NoteSpeed
+GuideName	ノーツの速度を変えます
+Constant	15.0
+DeltaValue	0.5
+MaxValue	30.0
+MinValue	1.0
+
+Name	Offset
+GuideName	曲と譜面のズレを調節します
+Constant	0.0
+DeltaValue	5.0
+MaxValue	200.0
+MinValue	-200.0
+
+Name	LaneCoverSize
+GuideName	レーン上部を隠すカバーの縦幅を変えます
+Constant	0.0
+DeltaValue	1.0
+MaxValue	100.0
+MinValue	0.0
+
+Name	BPMRate
+GuideName	曲の大きさを変えます
+Constant	70.0
+DeltaValue	1.0
+MaxValue	100.0
+MinValue	0.0
+
+Name	SERate
+GuideName	効果音の大きさを変えます
+Constant	70.0
+DeltaValue	1.0
+MaxValue	100.0
+MinValue	0.0
+
+Name	PlaySERate
+GuideName	プレイ時の効果音の大きさを変えます
+Constant	70.0
+DeltaValue	5.0
+MaxValue	100.0
+MinValue	0.0
+
+Name KeyBind
+GuideName	現在のキー設定を変えます
