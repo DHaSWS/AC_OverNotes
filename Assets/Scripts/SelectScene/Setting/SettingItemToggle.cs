@@ -4,8 +4,10 @@ using System;
 namespace OverNotes.System {
     public class SettingItemToggle : SettingItem {
         public bool Value;
-        public SettingItemToggle(string name, string guideName, bool value) : base(name, guideName) {
-            Value = value;
+        public bool ConstantValue { get; private set; }
+        public SettingItemToggle(string name, string guideName, bool constantValue) : base(name, guideName) {
+            Value = constantValue;
+            ConstantValue = constantValue;
         }
 
         public override void Minus() {

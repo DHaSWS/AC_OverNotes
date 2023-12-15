@@ -133,21 +133,21 @@ public class KeyManager : MonoBehaviour {
 
     private void RefreshKeyGuideText() {
         CheckValue();
-        if (key1GuideText.text != GuideMessage.guideLane1) {
-            key1GuideText.text = GuideMessage.guideLane1;
-            Debug.Log("Changed key1 guide text : " + GuideMessage.guideLane1);
+        if (key1GuideText.text != GuideMessage.GuideLane1) {
+            key1GuideText.text = GuideMessage.GuideLane1;
+            Debug.Log("Changed key1 guide text : " + GuideMessage.GuideLane1);
         }
-        if (key2GuideText.text != GuideMessage.guideLane2) {
-            key2GuideText.text = GuideMessage.guideLane2;
-            Debug.Log("Changed key2 guide text : " + GuideMessage.guideLane2);
+        if (key2GuideText.text != GuideMessage.GuideLane2) {
+            key2GuideText.text = GuideMessage.GuideLane2;
+            Debug.Log("Changed key2 guide text : " + GuideMessage.GuideLane2);
         }
-        if (key3GuideText.text != GuideMessage.guideLane3) {
-            key3GuideText.text = GuideMessage.guideLane3;
-            Debug.Log("Changed key3 guide text : " + GuideMessage.guideLane3);
+        if (key3GuideText.text != GuideMessage.GuideLane3) {
+            key3GuideText.text = GuideMessage.GuideLane3;
+            Debug.Log("Changed key3 guide text : " + GuideMessage.GuideLane3);
         }
-        if (key4GuideText.text != GuideMessage.guideLane4) {
-            key4GuideText.text = GuideMessage.guideLane4;
-            Debug.Log("Changed key4 guide text : " + GuideMessage.guideLane4);
+        if (key4GuideText.text != GuideMessage.GuideLane4) {
+            key4GuideText.text = GuideMessage.GuideLane4;
+            Debug.Log("Changed key4 guide text : " + GuideMessage.GuideLane4);
         }
     }
 

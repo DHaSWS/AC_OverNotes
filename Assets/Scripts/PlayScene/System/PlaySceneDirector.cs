@@ -5,6 +5,7 @@ using OverNotes;
 using UnityEngine.UI;
 using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
+using OverNotes.System;
 
 public class PlaySceneDirector : MonoBehaviour
 {
@@ -18,14 +19,15 @@ public class PlaySceneDirector : MonoBehaviour
 
     private void Awake()
     {
-        PlayContext.routine = PlayContext.Routine.FadeOut;
-        PlayContext.playDspTime = 0.0d;
-        PlayContext.lastBeatTime = 0.0d;
-        PlayContext.displayTime = 0.0d;
+        PlayContext.Routine = PlayContext.PlayRoutine.FadeOut;
+        PlayContext.PlayDspTime = 0.0d;
+        PlayContext.LastBeatTime = 0.0d;
+        PlayContext.DisplayTime = 0.0d;
 
-        OverNotes.SystemData.nowTime = 0;
-        OverNotes.SystemData.maxTime = 0;
-        OverNotes.SystemData.PlayData.combo = 0;
+        OverNotesSystem system = OverNotesSystem.Instance;
+
+        system.NowTime = 0;
+        
 
         ResultData.Count = new int[]
         {
@@ -36,38 +38,35 @@ public class PlaySceneDirector : MonoBehaviour
             0,
             0
         };
-        ResultData.score = 0.0f;
-        ResultData.maxCombo = 0;
+        ResultData.Score = 0.0f;
+        ResultData.MaxCombo = 0;
 
-        GuideMessage.guideLane1 = "";
-        GuideMessage.guideLane2 = "";
-        GuideMessage.guideLane3 = "";
-        GuideMessage.guideLane4 = "";
+        GuideMessage.GuideLane1 = "";
+        GuideMessage.GuideLane2 = "";
+        GuideMessage.GuideLane3 = "";
+        GuideMessage.GuideLane4 = "";
 
-        OverNotes.SystemData.PlayData.lanes = lanes;
-        beatmapLoader.CheckBeatmap();
+        PlayData.Lanes = lanes;
 
-        notes = OverNotes.SystemData.GetChart().notes;
+        notes = system.GetChart().notes;
 
         LoadChart();
 
-        // Debug.Log(OverNotes.SystemData.GetChart().maxCombo);
-
-        ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { PlayContext.routine = PlayContext.Routine.Ready; });
+        ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { PlayContext.Routine = PlayContext.PlayRoutine.Ready; });
     }
 
     private void FixedUpdate()
     {
         foreach (NoteParam note in notes)
         {
-            if (note.beatTime <= PlayContext.displayTime && note.noteState == NoteParam.NOTE_STATE.NONE)
+            if (note.beatTime <= PlayContext.DisplayTime && note.noteState == NoteParam.NOTE_STATE.NONE)
             {
                 noteFactory.CreateNote(note.beatTime, note.beatEndTime, note.column);
                 note.noteState = NoteParam.NOTE_STATE.NORMAL;
             }
         }
 
-        if (PlayContext.routine == PlayContext.Routine.FadeIn &&
+        if (PlayContext.Routine == PlayContext.PlayRoutine.FadeIn &&
             ONFade.Same(ONFade.State.Idle_FadeIn))
         {
             ONFade.SetFadeIn(this, 0.5f, fadeImage, () =>
@@ -76,9 +75,9 @@ public class PlaySceneDirector : MonoBehaviour
             });
         }
 
-        if (OverNotes.SystemData.nowTime > PlayContext.lastBeatTime)
+        if (OverNotesSystem.Instance.NowTime > PlayContext.LastBeatTime)
         {
-            PlayContext.routine = PlayContext.Routine.Finish;
+            PlayContext.Routine = PlayContext.PlayRoutine.Finish;
         }
     }
 
@@ -88,7 +87,7 @@ public class PlaySceneDirector : MonoBehaviour
         {
             note.noteState = NoteParam.NOTE_STATE.NONE;
 
-            PlayContext.lastBeatTime = Mathf.Max((float)PlayContext.lastBeatTime, (float)(note.beatEndTime));
+            PlayContext.LastBeatTime = Mathf.Max((float)PlayContext.LastBeatTime, (float)(note.beatEndTime));
         }
     }
 }

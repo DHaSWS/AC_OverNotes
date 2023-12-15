@@ -12,9 +12,9 @@ public class PlayGuide : MonoBehaviour
     [SerializeField] private Text guideLane4;
     void Update()
     {
-        guideLane1.text = GuideMessage.guideLane1;
-        guideLane2.text = GuideMessage.guideLane2;
-        guideLane3.text = GuideMessage.guideLane3;
-        guideLane4.text = GuideMessage.guideLane4;
+        guideLane1.text = GuideMessage.GuideLane1;
+        guideLane2.text = GuideMessage.GuideLane2;
+        guideLane3.text = GuideMessage.GuideLane3;
+        guideLane4.text = GuideMessage.GuideLane4;
     }
 }

@@ -18,9 +18,9 @@ public class ScoreUpdator : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(score != ResultData.score)
+        if(score != ResultData.Score)
         {
-            score = ResultData.score;
+            score = ResultData.Score;
             animator.Play(AnimatorHash.UpdateAnim, 0, 0.0f);
             scoreText.text = Mathf.RoundToInt(score).ToString();
         }

@@ -6,7 +6,7 @@ namespace OverNotes
 {
     public class PlayContext
     {
-        public enum Routine
+        public enum PlayRoutine
         {
             FadeOut,
             Ready,
@@ -24,13 +24,13 @@ namespace OverNotes
             Miss,
         }
 
-        static public Routine routine = Routine.FadeOut;
+        static public PlayRoutine Routine = PlayRoutine.FadeOut;
 
-        static public double playDspTime = 0.0d;
+        static public double PlayDspTime = 0.0d;
 
-        static public double lastBeatTime = 0.0d;
+        static public double LastBeatTime = 0.0d;
 
-        static public double displayTime = 0.0d;
+        static public double DisplayTime = 0.0d;
 
         static public Judge GetJudge(float time)
         {

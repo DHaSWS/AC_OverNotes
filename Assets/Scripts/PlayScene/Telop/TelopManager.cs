@@ -10,24 +10,24 @@ public class TelopManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(PlayContext.routine == PlayContext.Routine.Ready)
+        if(PlayContext.Routine == PlayContext.PlayRoutine.Ready)
         {
-            animator.SetInteger("Routine", 1);
+            animator.SetInteger("PlayRoutine", 1);
         }
-        else if(PlayContext.routine == PlayContext.Routine.Finish)
+        else if(PlayContext.Routine == PlayContext.PlayRoutine.Finish)
         {
-            animator.SetInteger("Routine", 2);
+            animator.SetInteger("PlayRoutine", 2);
         }
     }
 
     public void OnEndAnimationReady()
     {
-        PlayContext.routine = PlayContext.Routine.Play;
-        PlayContext.playDspTime = AudioSettings.dspTime;
+        PlayContext.Routine = PlayContext.PlayRoutine.Play;
+        PlayContext.PlayDspTime = AudioSettings.dspTime;
     }
 
     public void OnEndAnimationFinish()
     {
-        PlayContext.routine = PlayContext.Routine.FadeOut;
+        PlayContext.Routine = PlayContext.PlayRoutine.FadeOut;
     }
 }

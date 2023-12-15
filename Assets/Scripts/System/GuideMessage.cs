@@ -7,9 +7,9 @@ namespace OverNotes
 {
     public class GuideMessage
     {
-        static public string guideLane1 = "";
-        static public string guideLane2 = "";
-        static public string guideLane3 = "";
-        static public string guideLane4 = "";
+        static public string GuideLane1 = "";
+        static public string GuideLane2 = "";
+        static public string GuideLane3 = "";
+        static public string GuideLane4 = "";
     }
 }

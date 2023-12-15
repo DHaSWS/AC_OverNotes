@@ -1,4 +1,5 @@
 using OverNotes;
+using OverNotes.System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,37 +18,39 @@ public class AudioPlayer : MonoBehaviour
 
     private void Start()
     {
-        BeatmapData beatmapData = OverNotes.SystemData.GetBeatmap();
+        BeatmapData beatmapData = OverNotesSystem.Instance.GetBeatmap();
         audioSource.clip = beatmapData.clip;
         offset = beatmapData.offset;
     }
 
     private void FixedUpdate()
     {
-        if (PlayContext.routine >= PlayContext.Routine.Play)
+        if (PlayContext.Routine >= PlayContext.PlayRoutine.Play)
         {
             PlayMusic();
         }
 
-        if(OverNotes.SystemData.nowTime - offset >= audioSource.clip.length)
+        if(OverNotesSystem.Instance.NowTime - offset >= audioSource.clip.length)
         {
             audioSource.Stop();
-            PlayContext.routine = PlayContext.Routine.FadeIn;
+            PlayContext.Routine = PlayContext.PlayRoutine.FadeIn;
         }
     }
 
     private void PlayMusic()
     {
-        OverNotes.SystemData.nowTime += Time.deltaTime;
-        double time1f = 1.0f / OverNotes.SystemData.noteSpeed;
-        double addTime = time1f * 9.0f;
-        PlayContext.displayTime = OverNotes.SystemData.nowTime + addTime;
+        OverNotesSystem system = OverNotesSystem.Instance;
 
-        if(OverNotes.SystemData.nowTime > offset &&
+        system.NowTime += Time.deltaTime;
+        double time1f = 1.0f / (float)system.settingItems[(int)SystemConstants.SettingItemTag.NoteSpeed].GetValue();
+        double addTime = time1f * 9.0f;
+        PlayContext.DisplayTime = system.NowTime + addTime;
+
+        if(system.NowTime > offset &&
             !audioSource.isPlaying &&
-            PlayContext.routine == PlayContext.Routine.Play)
+            PlayContext.Routine == PlayContext.PlayRoutine.Play)
         {
-            float time = (float)(OverNotes.SystemData.nowTime - offset);
+            float time = (float)(system.NowTime - offset);
             audioSource.time = time;
             audioSource.Play();
         }

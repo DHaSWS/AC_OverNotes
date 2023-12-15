@@ -16,14 +16,14 @@ namespace OverNotes
             0
         };
 
-        static public float score = 0.0f;
+        static public float Score = 0.0f;
 
-        static public int maxCombo = 0;
+        static public int MaxCombo = 0;
 
         static public void SetScore(PlayContext.Judge judge)
         {
             float value = (SystemData.PlayData.allPerfectScore / SystemData.GetChart().maxCombo) * SystemData.PlayData.ScoreRate[(int)judge];
-            score += value;
+            Score += value;
         }
     }
 }

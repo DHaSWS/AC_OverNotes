@@ -27,13 +27,13 @@ public class ResultDirector : MonoBehaviour
     {
         ResultContext.state = ResultContext.State.Fade_Out;
 
-        GuideMessage.guideLane1 = "";
-        GuideMessage.guideLane2 = "";
-        GuideMessage.guideLane3 = "ŽŸ‚Ö";
-        GuideMessage.guideLane4 = "";
+        GuideMessage.GuideLane1 = "";
+        GuideMessage.GuideLane2 = "";
+        GuideMessage.GuideLane3 = "ŽŸ‚Ö";
+        GuideMessage.GuideLane4 = "";
 
-        score.text = Mathf.RoundToInt(ResultData.score).ToString("N0");
-        acc.text = (ResultData.score / OverNotes.SystemData.PlayData.allPerfectScore).ToString("000.00%");
+        score.text = Mathf.RoundToInt(ResultData.Score).ToString("N0");
+        acc.text = (ResultData.Score / OverNotes.SystemData.PlayData.allPerfectScore).ToString("000.00%");
         perfectP.text = ResultData.Count[0].ToString();
         perfect.text = ResultData.Count[1].ToString();
         great.text = ResultData.Count[2].ToString();

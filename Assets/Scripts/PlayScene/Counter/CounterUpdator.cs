@@ -29,10 +29,10 @@ public class CounterUpdator : MonoBehaviour
 
         combo.text = OverNotes.SystemData.PlayData.combo.ToString();
 
-        if(OverNotes.SystemData.PlayData.combo > ResultData.maxCombo)
+        if(OverNotes.SystemData.PlayData.combo > ResultData.MaxCombo)
         {
-            ResultData.maxCombo = OverNotes.SystemData.PlayData.combo;
+            ResultData.MaxCombo = OverNotes.SystemData.PlayData.combo;
         }
-        maxCombo.text = ResultData.maxCombo.ToString();
+        maxCombo.text = ResultData.MaxCombo.ToString();
     }
 }

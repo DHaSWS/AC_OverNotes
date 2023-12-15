@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using OverNotes;
 using EasingCore;
 using UnityEngine.InputSystem;
+using OverNotes.System;
 
 class ChartScrollView : FancyScrollView<Chart_ItemData>
 {

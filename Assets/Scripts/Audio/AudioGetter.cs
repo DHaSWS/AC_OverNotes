@@ -1,4 +1,5 @@
 using OverNotes;
+using OverNotes.System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class AudioGetter : MonoBehaviour
 
     private IEnumerator GenerateMusic()
     {
-        foreach(BeatmapData data in OverNotes.SystemData.beatmaps)
+        foreach(BeatmapData data in OverNotesSystem.Instance.Beatmaps)
         {
             string audioPath = data.audioFilePath;
             string extension = Path.GetExtension(audioPath);

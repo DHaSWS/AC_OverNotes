@@ -3,6 +3,7 @@ using OverNotes;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using OverNotes.System;
 
 class Chart_EntryPoint : MonoBehaviour
 {

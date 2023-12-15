@@ -5,6 +5,8 @@ namespace OverNotes.System {
     public class SettingItemValue : SettingItem {
         // Œ»İ‚Ì’l
         public object Value;
+        // ‰Šú’l
+        public object ConstantValue { get; private set; }
         // ’l ŠÇ——p
         private object _oldValue;
         // ’l‚ÌŒ^
@@ -27,6 +29,7 @@ namespace OverNotes.System {
             object minValue
             ) : base(name, guideName) {
             Value = constantValue;
+            ConstantValue = constantValue;
             _valueType = constantValue.GetType();
 
             // Œ^‚ªˆê’v‚µ‚Ä‚é‚©”»•Ê‚·‚é
@@ -79,19 +82,19 @@ namespace OverNotes.System {
                         // Save old value
                         _oldValue = Value;
 
-                        GuideMessage.guideLane1 = "”jŠü";
-                        GuideMessage.guideLane2 = "•Û‘¶";
-                        GuideMessage.guideLane3 = "Œ¸‚ç‚·";
-                        GuideMessage.guideLane4 = "‘‚â‚·";
+                        GuideMessage.GuideLane1 = "”jŠü";
+                        GuideMessage.GuideLane2 = "•Û‘¶";
+                        GuideMessage.GuideLane3 = "Œ¸‚ç‚·";
+                        GuideMessage.GuideLane4 = "‘‚â‚·";
                         break;
                     }
                 case SelectContext.SelectRoutine.Setting_Value: {
                         SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
 
-                        GuideMessage.guideLane1 = "–ß‚é";
-                        GuideMessage.guideLane2 = "Œˆ’è";
-                        GuideMessage.guideLane3 = "‘O‚Ö";
-                        GuideMessage.guideLane4 = "Ÿ‚Ö";
+                        GuideMessage.GuideLane1 = "–ß‚é";
+                        GuideMessage.GuideLane2 = "Œˆ’è";
+                        GuideMessage.GuideLane3 = "‘O‚Ö";
+                        GuideMessage.GuideLane4 = "Ÿ‚Ö";
                         break;
                     }
             }
@@ -99,10 +102,10 @@ namespace OverNotes.System {
 
         public override void Back() {
             Value = _oldValue;
-            GuideMessage.guideLane1 = "–ß‚é";
-            GuideMessage.guideLane2 = "Œˆ’è";
-            GuideMessage.guideLane3 = "‘O‚Ö";
-            GuideMessage.guideLane4 = "Ÿ‚Ö";
+            GuideMessage.GuideLane1 = "–ß‚é";
+            GuideMessage.GuideLane2 = "Œˆ’è";
+            GuideMessage.GuideLane3 = "‘O‚Ö";
+            GuideMessage.GuideLane4 = "Ÿ‚Ö";
             SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
         }
 
