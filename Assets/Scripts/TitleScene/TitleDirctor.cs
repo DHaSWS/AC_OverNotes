@@ -16,12 +16,13 @@ public class TitleDirctor : MonoBehaviour
 	private int select = 0;
 
     [SerializeField] private AudioSource audio;
-
+    private bool bgm = false;
 	// Start is called before the first frame update
 	void Start()
 	{
 		//フェード画像のフェードアウト
 		ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { });
+        audio.volume = 0.0f;
 	}
    
 	// Update is called once per frame
@@ -54,9 +55,12 @@ public class TitleDirctor : MonoBehaviour
         Math.Clamp(select, 0, 1);
 
         //スペースキーが押された場合フェードインし曲選択に移行
-        if (fKey.wasPressedThisFrame)
-            ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/SelectScene"); });
-        else if (ESCKey.wasPressedThisFrame)
+        //if (fKey.wasPressedThisFrame)
+        //    ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/SelectScene"); });
+        if (bgm == true)
+            audio.volume -= 0.02f;
+
+        if (ESCKey.wasPressedThisFrame)
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
@@ -121,8 +125,8 @@ public class TitleDirctor : MonoBehaviour
     // 任意キーが押されたときの処理
     private void OnAnyKey(InputAction.CallbackContext context)
     {
+        bgm = true;
         ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/SelectScene"); });
-        
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
