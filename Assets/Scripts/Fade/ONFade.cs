@@ -51,7 +51,6 @@ public class ONFade : MonoBehaviour
         while (value <= 1.0f)
         {
             value = nowTime / time;
-            Debug.Log(value);
             image.color = new Color(
                 image.color.r,
                 image.color.g,

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8678670839015423743}
   - component: {fileID: 6009787950694379978}
   - component: {fileID: 3735031043569637004}
-  - component: {fileID: 5516645698004144548}
   - component: {fileID: 1361599693307187701}
   m_Layer: 0
   m_Name: Note
@@ -99,24 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa88e67738d4bb740a6e0316b41df5ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  param: {fileID: 5516645698004144548}
-  judgeStr: {fileID: 7038863784180678490, guid: b769d1f7c09eb3643a39dba08932ae79, type: 3}
---- !u!114 &5516645698004144548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151734489702114860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f85e4f1321551fe498f230f0ecee12de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  beatTime: 0
-  beatEndTime: 0
-  column: 1
-  noteState: 0
 --- !u!82 &1361599693307187701
 AudioSource:
   m_ObjectHideFlags: 0

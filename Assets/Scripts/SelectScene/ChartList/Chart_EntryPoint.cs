@@ -10,8 +10,6 @@ class Chart_EntryPoint : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Enabled");
-
         OverNotesSystem system = OverNotesSystem.Instance;
 
         int index = system.SongIndex;

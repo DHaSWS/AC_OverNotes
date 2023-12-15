@@ -51,7 +51,7 @@ public class PlaySceneDirector : MonoBehaviour
 
         LoadChart();
 
-        Debug.Log(OverNotes.SystemData.GetChart().maxCombo);
+        // Debug.Log(OverNotes.SystemData.GetChart().maxCombo);
 
         ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { PlayContext.routine = PlayContext.Routine.Ready; });
     }

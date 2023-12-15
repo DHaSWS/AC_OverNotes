@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OverNotes
 {
-    public class NoteParam : MonoBehaviour
+    public class NoteParam
     {
         public enum NOTE_STATE
         {

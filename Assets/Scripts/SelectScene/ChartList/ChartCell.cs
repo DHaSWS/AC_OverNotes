@@ -7,7 +7,6 @@ class ChartCell : FancyCell<Chart_ItemData>
 {
     [SerializeField] Text text = default;
     [SerializeField] Text level = default;
-    [SerializeField] string cellTag = default;
     [SerializeField] Animator animator = default;
     float currentPosition = 0;
 

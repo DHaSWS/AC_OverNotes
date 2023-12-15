@@ -11,12 +11,10 @@ public class BeatmapList : MonoBehaviour
 
     public void AnimEndSongSelect()
     {
-        Debug.Log("AnimEndSongSelect");
         SelectContext.selectRoutine = SelectContext.SelectRoutine.Chart;
     }
     public void AnimEndChartBack()
     {
-        Debug.Log("AnimEndChartBack");
         animator.SetInteger("MoveRoutine", 0);
         SelectContext.selectRoutine = SelectContext.SelectRoutine.Song;
     }

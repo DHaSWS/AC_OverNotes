@@ -33,7 +33,7 @@ public class AudioGetter : MonoBehaviour
                     break;
                 default:
                     {
-                        Debug.LogError("This extension is not supported");
+                        Debug.LogError("This extension is not supported.");
                     }
                     break;
             }
@@ -49,6 +49,6 @@ public class AudioGetter : MonoBehaviour
                 data.clip.name = Path.GetFileNameWithoutExtension(audioPath);
             }
         }
-        Debug.Log("Generated music");
+        Debug.Log("Generated music.");
     }
 }

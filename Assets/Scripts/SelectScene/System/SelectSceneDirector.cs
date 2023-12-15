@@ -14,18 +14,16 @@ public class SelectSceneDirector : MonoBehaviour
     [SerializeField] private Text noteSpeed;
     [SerializeField] private GameObject chartList;
     [SerializeField] private Image fadeImage;
-    [SerializeField] private BeatmapLoader beatmapLoader;
     [Space] // ----------------------------------------------------------------
     [Header("Setting")]
     [SerializeField] private SettingPanelScrollView settingPanelScrollView;
 
-    private void OnEnable()
+    private void Start()
     {
         SelectContext.selectRoutine = SelectContext.SelectRoutine.Song;
 
         OverNotesSystem.Instance.ChartIndex = 0;
         OverNotesSystem.Instance.SongIndex = 0;
-        beatmapLoader.CheckBeatmap();
 
         GuideMessage.guideLane1 = "–ß‚é";
         GuideMessage.guideLane2 = "Œˆ’è";
@@ -50,7 +48,6 @@ public class SelectSceneDirector : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Select");
 
         OverNotesSystem system = OverNotesSystem.Instance;
 
@@ -91,7 +88,6 @@ public class SelectSceneDirector : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Back");
 
         switch (SelectContext.selectRoutine)
         {

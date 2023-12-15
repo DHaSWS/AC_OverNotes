@@ -66,8 +66,6 @@ class ChartScrollView : FancyScrollView<Chart_ItemData>
             return;
         }
 
-        Debug.Log("Chart:SelectCell");
-
         UpdateSelection(index);
         scroller.ScrollTo(index, 0.5f, Ease.OutCubic);
     }

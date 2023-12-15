@@ -15,7 +15,7 @@ public class CounterUpdator : MonoBehaviour
     {
         if(judgeCounter.Length != 6)
         {
-            Debug.LogError("”‚ª‚ ‚í‚È‚¢‚æ");
+            Debug.LogError("The numbers don't add up.");
         }
     }
 

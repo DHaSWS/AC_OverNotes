@@ -10,7 +10,7 @@ public class SettingPanelEntryPoint : MonoBehaviour
 {
     [SerializeField] SettingPanelScrollView scrollView = default;
 
-    private void OnEnable() {
+    private void Start() {
         int index = SettingPanelParams.SettingIndex;
 
         OverNotesSystem system = OverNotesSystem.Instance;

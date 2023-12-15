@@ -9,6 +9,10 @@ public class BeatmapLoader : MonoBehaviour
 {
     [SerializeField] private AudioGetter audioGetter;
 
+    private void Awake() {
+        CheckBeatmap();
+    }
+
     public void CheckBeatmap()
     {
         OverNotesSystem system = OverNotesSystem.Instance;
@@ -38,6 +42,7 @@ public class BeatmapLoader : MonoBehaviour
         }
 
         audioGetter.GetAudioClip();
+        Debug.Log("Loaded beatmap data.");
     }
 
     private void LoadFolder(string folderPath)
@@ -132,7 +137,7 @@ public class BeatmapLoader : MonoBehaviour
                 continue;
             }
 
-            NoteParam noteParam = new NoteParam();
+            NoteParam noteParam = new();
 
             string[] splitLine = splitData[i].Split('\t');
             noteParam.beatTime = double.Parse(splitLine[0]) + 1.0d;

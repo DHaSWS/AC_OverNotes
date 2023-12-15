@@ -72,11 +72,8 @@ class SongScrollView : FancyScrollView<ItemData>
             return;
         }
 
-        Debug.Log("Song:SelectCell");
-
         int clampedIndex = Mathf.Clamp(index, 0, system.Beatmaps.Count - 1);
 
-        Debug.Log(clampedIndex);
         UpdateSelection(clampedIndex);
         scroller.ScrollTo(clampedIndex, 0.5f, Ease.OutCubic);
     }
