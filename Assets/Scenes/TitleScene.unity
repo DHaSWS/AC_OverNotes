@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 955411963}
-  pushAnyKey: {fileID: 0}
+  pushAnyKey: {fileID: 1542509272}
   bgm_audio: {fileID: 1006783475}
 --- !u!4 &735016170
 Transform:
@@ -604,7 +604,7 @@ Transform:
   m_GameObject: {fileID: 803167262}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.78, y: -4.64, z: 0}
+  m_LocalPosition: {x: -6.31, y: -4.54, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -891,7 +891,7 @@ Transform:
   m_GameObject: {fileID: 1542509271}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.5, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1075,5 +1075,5 @@ SceneRoots:
   - {fileID: 14241939}
   - {fileID: 84222259}
   - {fileID: 1006783476}
-  - {fileID: 1542509273}
   - {fileID: 803167264}
+  - {fileID: 1542509273}

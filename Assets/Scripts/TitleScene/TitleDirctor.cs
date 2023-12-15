@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class TitleDirctor : MonoBehaviour
 {
 	[SerializeField] private Image fadeImage;
-	[SerializeField] private TextMeshProUGUI pushAnyKey;
+	[SerializeField] private SpriteRenderer pushAnyKey;
 	private float feedColor = 1.0f;
 
     [SerializeField] private AudioSource bgm_audio = new AudioSource();
