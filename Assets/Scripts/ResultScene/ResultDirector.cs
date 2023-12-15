@@ -5,6 +5,7 @@ using OverNotes;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using OverNotes.System;
 
 public class ResultDirector : MonoBehaviour
 {
@@ -23,8 +24,10 @@ public class ResultDirector : MonoBehaviour
     [SerializeField] private Text artist;
     [SerializeField] private Text chart;
 
-    private void Awake()
+    private void Start()
     {
+        OverNotesSystem system = OverNotesSystem.Instance;
+        
         ResultContext.state = ResultContext.State.Fade_Out;
 
         GuideMessage.GuideLane1 = "";
@@ -33,7 +36,7 @@ public class ResultDirector : MonoBehaviour
         GuideMessage.GuideLane4 = "";
 
         score.text = Mathf.RoundToInt(ResultData.Score).ToString("N0");
-        acc.text = (ResultData.Score / OverNotes.SystemData.PlayData.allPerfectScore).ToString("000.00%");
+        acc.text = (ResultData.Score / SystemConstants.AllPerfectScore).ToString("000.00%");
         perfectP.text = ResultData.Count[0].ToString();
         perfect.text = ResultData.Count[1].ToString();
         great.text = ResultData.Count[2].ToString();
@@ -41,9 +44,9 @@ public class ResultDirector : MonoBehaviour
         bad.text = ResultData.Count[4].ToString();
         miss.text = ResultData.Count[5].ToString();
 
-        title.text = OverNotes.SystemData.GetBeatmap().title;
-        artist.text = OverNotes.SystemData.GetBeatmap().artist;
-        chart.text = OverNotes.SystemData.GetChart().diffucult.ToString() + " " + OverNotes.SystemData.GetChart().level;
+        title.text = system.GetBeatmap().title;
+        artist.text = system.GetBeatmap().artist;
+        chart.text = system.GetChart().diffucult.ToString() + " " + system.GetChart().level;
 
         ONFade.SetFadeOut(this, 0.5f, fadeImage, () =>
         {
