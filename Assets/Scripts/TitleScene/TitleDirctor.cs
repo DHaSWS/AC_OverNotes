@@ -11,18 +11,20 @@ using UnityEngine.UI;
 public class TitleDirctor : MonoBehaviour
 {
 	[SerializeField] private Image fadeImage;
-	[SerializeField] private TextMeshProUGUI pushSpaceKey;
+	[SerializeField] private TextMeshProUGUI pushAnyKey;
 	private float feedColor = 1.0f;
-	private int select = 0;
 
-    [SerializeField] private AudioSource audio;
+    [SerializeField] private AudioSource bgm_audio = new AudioSource();
     private bool bgm = false;
+
+    private InputAction _anyKeyAction;
+
 	// Start is called before the first frame update
 	void Start()
 	{
 		//フェード画像のフェードアウト
 		ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { });
-        audio.volume = 0.0f;
+        bgm_audio.volume = 0.0f;
 	}
    
 	// Update is called once per frame
@@ -37,28 +39,11 @@ public class TitleDirctor : MonoBehaviour
 			return;
 		}
 
-		var fKey = current[Key.F];
 		var ESCKey = current[Key.Escape];
-        var upKey = current[Key.UpArrow];
-        var downKey = current[Key.DownArrow];
-
-        if (upKey.wasPressedThisFrame)
-		{
-			select++;
-
-        }
-        else if (downKey.wasPressedThisFrame)
-        {
-			select--;
-        }
-
-        Math.Clamp(select, 0, 1);
 
         //スペースキーが押された場合フェードインし曲選択に移行
-        //if (fKey.wasPressedThisFrame)
-        //    ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/SelectScene"); });
         if (bgm == true)
-            audio.volume -= 0.02f;
+            bgm_audio.volume -= 0.02f;
 
         if (ESCKey.wasPressedThisFrame)
         {
@@ -69,18 +54,18 @@ public class TitleDirctor : MonoBehaviour
 #endif
         }
 
-        if (pushSpaceKey.color.a >= 1 || pushSpaceKey.color.a <= 0)
+        if (pushAnyKey.color.a >= 1 || pushAnyKey.color.a <= 0)
 			feedColor *= -1;
 
-		pushSpaceKey.color = new Color(pushSpaceKey.color.r, pushSpaceKey.color.g, pushSpaceKey.color.b, pushSpaceKey.color.a + (feedColor * Time.deltaTime));
+		pushAnyKey.color = new Color(pushAnyKey.color.r, pushAnyKey.color.g, pushAnyKey.color.b, pushAnyKey.color.a + (feedColor * Time.deltaTime));
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         //シーン遷移の入力を自由にさせる為に作りました。消す時は//で囲んだところを消してください。　
-        audio.volume += 0.01f;
+        bgm_audio.volume += 0.01f;
         
-            Awake();
-            OnDestroy();
-            OnEnable();
+        Awake();
+        OnDestroy();
+        OnEnable();
         OnDisable();
         
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,7 +73,6 @@ public class TitleDirctor : MonoBehaviour
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private InputAction _anyKeyAction;
 
     private void Awake()
     {
