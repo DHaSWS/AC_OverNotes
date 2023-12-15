@@ -77,10 +77,12 @@ public class TitleDirctor : MonoBehaviour
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         //シーン遷移の入力を自由にさせる為に作りました。消す時は//で囲んだところを消してください。　
         audio.volume += 0.01f;
-        Awake();
-        OnDestroy();
-        OnEnable();
+        
+            Awake();
+            OnDestroy();
+            OnEnable();
         OnDisable();
+        
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -98,13 +100,13 @@ public class TitleDirctor : MonoBehaviour
         );
 
         // コールバック登録
-        _anyKeyAction.performed += OnAnyKey;
+            _anyKeyAction.performed += OnAnyKey;
     }
 
     private void OnDestroy()
     {
         // コールバック解除
-        _anyKeyAction.performed -= OnAnyKey;
+            _anyKeyAction.performed -= OnAnyKey;
 
         // Actionの破棄
         _anyKeyAction.Dispose();
@@ -126,7 +128,8 @@ public class TitleDirctor : MonoBehaviour
     private void OnAnyKey(InputAction.CallbackContext context)
     {
         bgm = true;
-        ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/SelectScene"); });
+        if (SceneManager.GetActiveScene().name == "TitleScene")
+            ONFade.SetFadeIn(this, 0.5f, fadeImage, () => { SceneManager.LoadScene("Scenes/SelectScene"); });
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
