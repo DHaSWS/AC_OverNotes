@@ -42,7 +42,7 @@ public class AudioPlayer : MonoBehaviour
         OverNotesSystem system = OverNotesSystem.Instance;
 
         system.NowTime += Time.deltaTime;
-        double time1f = 1.0f / (float)system.settingItems[(int)SystemConstants.SettingItemTag.NoteSpeed].GetValue();
+        double time1f = 1.0f / (float)system.SettingItems[(int)SystemConstants.SettingItemTag.NoteSpeed].GetValue();
         double addTime = time1f * 9.0f;
         PlayContext.DisplayTime = system.NowTime + addTime;
 

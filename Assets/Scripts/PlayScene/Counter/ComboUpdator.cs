@@ -1,4 +1,5 @@
 using OverNotes;
+using OverNotes.System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,13 +18,13 @@ public class ComboUpdator : MonoBehaviour
 
     private void Update()
     {
-        if(combo != OverNotes.SystemData.PlayData.combo)
+        if(combo != PlayData.Combo)
         {
-            if(combo < OverNotes.SystemData.PlayData.combo)
+            if(combo < PlayData.Combo)
             {
                 animator.Play(AnimatorHash.UpdateAnim, 0, 0.0f);
             }
-            combo = OverNotes.SystemData.PlayData.combo;
+            combo = PlayData.Combo;
         }
     }
 }

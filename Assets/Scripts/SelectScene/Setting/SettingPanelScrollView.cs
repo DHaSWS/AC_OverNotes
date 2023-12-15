@@ -40,22 +40,22 @@ public class SettingPanelScrollView : FancyScrollView<SettingPanelItemData>
     }
 
     public void Back() {
-        OverNotesSystem.Instance.settingItems[SettingPanelParams.SettingIndex].Back();
+        OverNotesSystem.Instance.SettingItems[SettingPanelParams.SettingIndex].Back();
     }
 
     public void Select() {
-        OverNotesSystem.Instance.settingItems[SettingPanelParams.SettingIndex].Select();
+        OverNotesSystem.Instance.SettingItems[SettingPanelParams.SettingIndex].Select();
     }
 
     public void AddValue() {
         if(SelectContext.selectRoutine == SelectContext.SelectRoutine.Setting_Value) {
-            OverNotesSystem.Instance.settingItems[SettingPanelParams.SettingIndex].Plus();
+            OverNotesSystem.Instance.SettingItems[SettingPanelParams.SettingIndex].Plus();
         }
     }
 
     public void SubValue() {
         if (SelectContext.selectRoutine == SelectContext.SelectRoutine.Setting_Value) {
-            OverNotesSystem.Instance.settingItems[SettingPanelParams.SettingIndex].Minus();
+            OverNotesSystem.Instance.SettingItems[SettingPanelParams.SettingIndex].Minus();
         }
     }
 

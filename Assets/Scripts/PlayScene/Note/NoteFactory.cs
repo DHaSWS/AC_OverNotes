@@ -1,4 +1,5 @@
 using OverNotes;
+using OverNotes.System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +15,10 @@ public class NoteFactory : MonoBehaviour
         )
     {
         // ノーツの生成
-        GameObject note = Instantiate(m_notePrefab, OverNotes.SystemData.PlayData.lanes[column - 1]);
+        GameObject note = Instantiate(m_notePrefab, PlayData.Lanes[column - 1]);
 
         // ノーツのデータ
-        NoteParam noteParam = note.GetComponent<NoteParam>();
+        NoteParam noteParam = note.GetComponent<NoteController>().param;
 
         // データ内に判定時間、判定終了時間を入れる
         noteParam.beatTime = beatTime;

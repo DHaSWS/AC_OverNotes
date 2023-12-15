@@ -21,8 +21,8 @@ class SettingPanel : FancyCell<SettingPanelItemData> {
 
     private void Update() {
         OverNotesSystem system = OverNotesSystem.Instance;
-        if(itemValue.text != system.settingItems[_index].GetValue().ToString()) {
-            itemValue.text = system.settingItems[_index].GetValue().ToString();
+        if(itemValue.text != system.SettingItems[_index].GetValue().ToString()) {
+            itemValue.text = system.SettingItems[_index].GetValue().ToString();
         }
 
         if (

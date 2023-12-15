@@ -1,4 +1,5 @@
 using OverNotes;
+using OverNotes.System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,11 +28,11 @@ public class CounterUpdator : MonoBehaviour
             judgeCounter[i].text = ResultData.Count[i].ToString();
         }
 
-        combo.text = OverNotes.SystemData.PlayData.combo.ToString();
+        combo.text = PlayData.Combo.ToString();
 
-        if(OverNotes.SystemData.PlayData.combo > ResultData.MaxCombo)
+        if(PlayData.Combo > ResultData.MaxCombo)
         {
-            ResultData.MaxCombo = OverNotes.SystemData.PlayData.combo;
+            ResultData.MaxCombo = PlayData.Combo;
         }
         maxCombo.text = ResultData.MaxCombo.ToString();
     }

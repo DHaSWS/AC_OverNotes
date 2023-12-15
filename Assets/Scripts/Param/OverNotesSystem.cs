@@ -20,7 +20,7 @@ namespace OverNotes.System {
         public double NowTime = SystemConstants.NowTime;
 
         // Setting
-        public List<SettingItem> settingItems = new() {
+        public List<SettingItem> SettingItems = new() {
             new SettingItemValue("NoteSpeed", "ノーツの速度を変えます", 15.0f, 0.5f, 30.0f, 1.0f ),
             new SettingItemValue("Offset", "曲と譜面のズレを調節します", 0.0f, 5.0f, 200.0f, -200.0f),
             new SettingItemValue("LaneCoverSize", "レーン上部を隠すカバーの縦幅を変えます", 0.0f, 1.0f, 80.0f, 0.0f),
@@ -37,6 +37,7 @@ namespace OverNotes.System {
             if (instance != null) return;
             // インスタンスを保持する
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         // ビートマップデータを取得する

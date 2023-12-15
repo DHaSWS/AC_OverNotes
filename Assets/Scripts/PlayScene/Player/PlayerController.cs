@@ -5,9 +5,9 @@ using UnityEngine.InputSystem.Utilities;
 using Effekseer;
 using static UnityEditor.PlayerSettings;
 using UnityEngine.SearchService;
+using OverNotes.System;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     [SerializeField] AudioSource se;
     [SerializeField] private InputActionAsset asset;
     [SerializeField] InputActionTrace trace;
@@ -16,37 +16,30 @@ public class PlayerController : MonoBehaviour
     //エフェクトの拡大率
     private static Vector3 m_effectScale = new Vector3(0.7f, 0.7f, 0.7f);
 
-    
-    private void Awake()
-    {
+
+    private void Awake() {
         InputSystem.pollingFrequency = 240;
         trace = new InputActionTrace();
         PlayerInput playerInput = GetComponent<PlayerInput>();
 
-        if (playerInput != null && playerInput.currentActionMap != null)
-        {
+        if (playerInput != null && playerInput.currentActionMap != null) {
             trace.SubscribeTo(playerInput.currentActionMap["Lane1"]);
             trace.SubscribeTo(playerInput.currentActionMap["Lane2"]);
             trace.SubscribeTo(playerInput.currentActionMap["Lane3"]);
             trace.SubscribeTo(playerInput.currentActionMap["Lane4"]);
-        }
-        else
-        {
+        } else {
             Debug.LogError("PlayerInput or currentActionMap is null");
         }
     }
 
-    private void Update()
-    {
-        foreach(var kvp in trace)
-        {
-            double triggeredTime = OverNotes.SystemData.nowTime - (Time.realtimeSinceStartup - kvp.time);
+    private void Update() {
+        foreach (var kvp in trace) {
+            double triggeredTime = OverNotesSystem.Instance.NowTime - (Time.realtimeSinceStartup - kvp.time);
             string actionName = kvp.action.name;
             string num = actionName.Substring(4, 1);
             int index = int.Parse(num) - 1;
 
-            if (OverNotes.SystemData.PlayData.lanes[index].childCount == 0)
-            {
+            if (PlayData.Lanes[index].childCount == 0) {
                 continue;
             }
             if (kvp.phase == InputActionPhase.Started)
@@ -57,15 +50,13 @@ public class PlayerController : MonoBehaviour
         trace.Clear();
     }
 
-    public void TriggeredKey(InputAction.CallbackContext context)
-    {
-        double triggeredTime = OverNotes.SystemData.nowTime - (Time.realtimeSinceStartup - context.time);
+    public void TriggeredKey(InputAction.CallbackContext context) {
+        double triggeredTime = OverNotesSystem.Instance.NowTime - (Time.realtimeSinceStartup - context.time);
         string actionName = context.action.name;
         string num = actionName.Substring(4, 1);
         int index = int.Parse(num) - 1;
 
-        if (OverNotes.SystemData.PlayData.lanes[index].childCount == 0)
-        {
+        if (PlayData.Lanes[index].childCount == 0) {
             return;
         }
         if (context.started)
@@ -74,9 +65,8 @@ public class PlayerController : MonoBehaviour
             Released(index, triggeredTime);
     }
 
-    private void Push(int index, double triggeredTime)
-    {
-        GameObject note = OverNotes.SystemData.PlayData.lanes[index].GetChild(0).gameObject;
+    private void Push(int index, double triggeredTime) {
+        GameObject note = PlayData.Lanes[index].GetChild(0).gameObject;
         NoteController noteController = note.GetComponent<NoteController>();
 
         se.PlayOneShot(se.clip);
@@ -85,24 +75,17 @@ public class PlayerController : MonoBehaviour
 
         noteController.JudgeNormal(Mathf.Abs((float)(triggeredTime - noteController.param.beatTime)));
     }
-    private void Released(int index, double triggeredTime)
-    {
-        GameObject note = OverNotes.SystemData.PlayData.lanes[index].GetChild(0).gameObject;
+    private void Released(int index, double triggeredTime) {
+        GameObject note = PlayData.Lanes[index].GetChild(0).gameObject;
         NoteController noteController = note.GetComponent<NoteController>();
         noteController.JudgeHold(Mathf.Abs((float)(triggeredTime - noteController.param.beatEndTime)));
-        
-
     }
 
-    private void OnDestroy()
-    {
-        if (trace != null)
-        {
+    private void OnDestroy() {
+        if (trace != null) {
             trace.UnsubscribeFromAll();
             trace.Dispose();
-        }
-        else
-        {
+        } else {
             Debug.LogWarning("trace is already null. Skipping unsubscribe and dispose.");
         }
     }
@@ -111,12 +94,11 @@ public class PlayerController : MonoBehaviour
     /// タップエフェクト描画
     /// </summary>
     /// <param name="pushNumber">押したキーの番号</param>
-    private void PlayTapEffect(int pushNumber)
-    {
+    private void PlayTapEffect(int pushNumber) {
         //エフェクトの座標計算
-        Vector3 effectPosition = new Vector3 (-1.5f +( (pushNumber) * 1.0f), -5, 0.5f);
-        
-        
+        Vector3 effectPosition = new Vector3(-1.5f + ((pushNumber) * 1.0f), -5, 0.5f);
+
+
         //エフェクト
         EffekseerHandle handle = EffekseerSystem.PlayEffect(effect, effectPosition);
         //拡大率

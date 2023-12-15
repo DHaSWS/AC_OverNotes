@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using OverNotes.System;
 
-namespace OverNotes
-{
+namespace OverNotes {
     public class ResultData 
     {
         static public int[] Count = new int[]
@@ -22,7 +19,8 @@ namespace OverNotes
 
         static public void SetScore(PlayContext.Judge judge)
         {
-            float value = (SystemData.PlayData.allPerfectScore / SystemData.GetChart().maxCombo) * SystemData.PlayData.ScoreRate[(int)judge];
+            OverNotesSystem system = OverNotesSystem.Instance;
+            float value = SystemConstants.AllPerfectScore / system.GetChart().maxCombo * SystemConstants.ScoreRate[(int)judge];
             Score += value;
         }
     }

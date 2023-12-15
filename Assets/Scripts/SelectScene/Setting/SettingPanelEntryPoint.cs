@@ -16,11 +16,11 @@ public class SettingPanelEntryPoint : MonoBehaviour
         OverNotesSystem system = OverNotesSystem.Instance;
 
         // ここは設定のやつ
-        int count = system.settingItems.Count;
+        int count = system.SettingItems.Count;
 
         // ここでリスト作る
         List<SettingPanelItemData> items = Enumerable.Range(0, count)
-            .Select(i => new SettingPanelItemData(system.settingItems[i], i)
+            .Select(i => new SettingPanelItemData(system.SettingItems[i], i)
             ).ToList();
 
         //scrollView.UpdateData();でリストを入れる

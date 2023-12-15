@@ -8,8 +8,7 @@ using UnityEngine.UI;
 using OverNotes.System;
 using System;
 
-public class SelectSceneDirector : MonoBehaviour
-{
+public class SelectSceneDirector : MonoBehaviour {
     [SerializeField] private Animator songAnimator;
     [SerializeField] private Animator settingAnimator;
     [SerializeField] private Text noteSpeed;
@@ -19,8 +18,7 @@ public class SelectSceneDirector : MonoBehaviour
     [Header("Setting")]
     [SerializeField] private SettingPanelScrollView settingPanelScrollView;
 
-    private void Start()
-    {
+    private void Start() {
         SelectContext.selectRoutine = SelectContext.SelectRoutine.Song;
 
         OverNotesSystem.Instance.ChartIndex = 0;
@@ -34,37 +32,30 @@ public class SelectSceneDirector : MonoBehaviour
         ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { });
     }
 
-    private void Update()
-    {
+    private void Update() {
         if (SelectContext.selectRoutine == SelectContext.SelectRoutine.Song &&
-            chartList.activeSelf)
-        {
+            chartList.activeSelf) {
             chartList.SetActive(false);
         }
     }
 
-    public void Select(InputAction.CallbackContext context)
-    {
-        if (!context.started)
-        {
+    public void Select(InputAction.CallbackContext context) {
+        if (!context.started) {
             return;
         }
 
         OverNotesSystem system = OverNotesSystem.Instance;
 
-        switch (SelectContext.selectRoutine)
-        {
-            case SelectContext.SelectRoutine.Song:
-                {
+        switch (SelectContext.selectRoutine) {
+            case SelectContext.SelectRoutine.Song: {
                     SelectContext.selectRoutine = SelectContext.SelectRoutine.Song_Select;
                     songAnimator.SetInteger("MoveRoutine", 1);
                     chartList.SetActive(true);
                 }
                 break;
-            case SelectContext.SelectRoutine.Chart:
-                {
+            case SelectContext.SelectRoutine.Chart: {
                     // Setting‚¾‚Á‚½‚ç
-                    if(system.ChartIndex == system.GetBeatmap().charts.Count) {
+                    if (system.ChartIndex == system.GetBeatmap().charts.Count) {
                         SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
                         // Fade out
                         SettingPanelParams.IsFadeIn = false;
@@ -75,8 +66,8 @@ public class SelectSceneDirector : MonoBehaviour
                     }
                     break;
                 }
-            case SelectContext.SelectRoutine routine when 
-                routine == SelectContext.SelectRoutine.Setting || 
+            case SelectContext.SelectRoutine routine when
+                routine == SelectContext.SelectRoutine.Setting ||
                 routine == SelectContext.SelectRoutine.Setting_Value: {
                     if (settingPanelScrollView != null) {
                         settingPanelScrollView.Select();
@@ -86,30 +77,25 @@ public class SelectSceneDirector : MonoBehaviour
         }
     }
 
-    public void Back(InputAction.CallbackContext context)
-    {
-        if (!context.started)
-        {
+    public void Back(InputAction.CallbackContext context) {
+        if (!context.started) {
             return;
         }
 
-        switch (SelectContext.selectRoutine)
-        {
-            case SelectContext.SelectRoutine.Chart:
-                {
+        switch (SelectContext.selectRoutine) {
+            case SelectContext.SelectRoutine.Chart: {
                     SelectContext.selectRoutine = SelectContext.SelectRoutine.Chart_Back;
                     songAnimator.SetInteger("MoveRoutine", 2);
                 }
                 break;
-            case SelectContext.SelectRoutine.Setting:
-                {
+            case SelectContext.SelectRoutine.Setting: {
                     SelectContext.selectRoutine = SelectContext.SelectRoutine.Chart;
                     // Fade in
                     SettingPanelParams.IsFadeIn = true;
                 }
                 break;
             case SelectContext.SelectRoutine.Setting_Value: {
-                    if(settingPanelScrollView != null) {
+                    if (settingPanelScrollView != null) {
                         settingPanelScrollView.Back();
                     }
                     break;
@@ -117,16 +103,13 @@ public class SelectSceneDirector : MonoBehaviour
         }
     }
 
-    public void AddValue(InputAction.CallbackContext context)
-    {
+    public void AddValue(InputAction.CallbackContext context) {
         if (!context.started) return;
 
         OverNotesSystem system = OverNotesSystem.Instance;
-        
-        switch (SelectContext.selectRoutine)
-        {
-            case SelectContext.SelectRoutine.Setting_Value:
-                {
+
+        switch (SelectContext.selectRoutine) {
+            case SelectContext.SelectRoutine.Setting_Value: {
                     if (settingPanelScrollView != null) {
                         settingPanelScrollView.AddValue();
                     }
@@ -134,14 +117,12 @@ public class SelectSceneDirector : MonoBehaviour
                 }
         }
     }
-    public void SubValue(InputAction.CallbackContext context)
-    {
+    public void SubValue(InputAction.CallbackContext context) {
         if (!context.started) return;
 
         OverNotesSystem system = OverNotesSystem.Instance;
 
-        switch (SelectContext.selectRoutine)
-        {
+        switch (SelectContext.selectRoutine) {
             case SelectContext.SelectRoutine.Setting_Value: {
                     if (settingPanelScrollView != null) {
                         settingPanelScrollView.SubValue();

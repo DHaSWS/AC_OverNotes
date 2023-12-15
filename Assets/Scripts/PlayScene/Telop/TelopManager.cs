@@ -12,11 +12,11 @@ public class TelopManager : MonoBehaviour
     {
         if(PlayContext.Routine == PlayContext.PlayRoutine.Ready)
         {
-            animator.SetInteger("PlayRoutine", 1);
+            animator.SetInteger("Routine", 1);
         }
         else if(PlayContext.Routine == PlayContext.PlayRoutine.Finish)
         {
-            animator.SetInteger("PlayRoutine", 2);
+            animator.SetInteger("Routine", 2);
         }
     }
 
