@@ -50,6 +50,8 @@ public class KeyManager : MonoBehaviour {
 
         RefreshKeyBind();
         RefreshKeyGuideText();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnDestroy() {

@@ -6,12 +6,16 @@ using Effekseer;
 using static UnityEditor.PlayerSettings;
 using UnityEngine.SearchService;
 using OverNotes.System;
+using System;
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] AudioSource se;
     [SerializeField] private InputActionAsset asset;
     [SerializeField] InputActionTrace trace;
     [SerializeField] EffekseerEffectAsset effect;
+
+    // Invoke actions
+    static public event Action<int> OnPressLane;
 
     //エフェクトの拡大率
     private static Vector3 m_effectScale = new Vector3(0.7f, 0.7f, 0.7f);
@@ -39,11 +43,10 @@ public class PlayerController : MonoBehaviour {
             string num = actionName.Substring(4, 1);
             int index = int.Parse(num) - 1;
 
-            if (PlayData.Lanes[index].childCount == 0) {
-                continue;
-            }
-            if (kvp.phase == InputActionPhase.Started)
+            if (kvp.phase == InputActionPhase.Started) {
+                OnPressLane?.Invoke(0);
                 Push(index, triggeredTime);
+            }
             if (kvp.phase == InputActionPhase.Canceled)
                 Released(index, triggeredTime);
         }
@@ -66,6 +69,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Push(int index, double triggeredTime) {
+        if (PlayData.Lanes[index].childCount == 0) {
+            return;
+        }
         GameObject note = PlayData.Lanes[index].GetChild(0).gameObject;
         NoteController noteController = note.GetComponent<NoteController>();
 
@@ -76,6 +82,9 @@ public class PlayerController : MonoBehaviour {
         noteController.JudgeNormal(Mathf.Abs((float)(triggeredTime - noteController.param.beatTime)));
     }
     private void Released(int index, double triggeredTime) {
+        if (PlayData.Lanes[index].childCount == 0) {
+            return;
+        }
         GameObject note = PlayData.Lanes[index].GetChild(0).gameObject;
         NoteController noteController = note.GetComponent<NoteController>();
         noteController.JudgeHold(Mathf.Abs((float)(triggeredTime - noteController.param.beatEndTime)));

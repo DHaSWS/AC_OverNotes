@@ -575,6 +575,7 @@ GameObject:
   - component: {fileID: 3086770014935904093}
   - component: {fileID: 7822494831010729111}
   - component: {fileID: 7075562631257102245}
+  - component: {fileID: 3140349142512909608}
   m_Layer: 5
   m_Name: PlayGuide
   m_TagString: Untagged
@@ -694,6 +695,33 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3140349142512909608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4493881392245676853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abaf5ea80baf3541ab3e1c51b27d1fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laneActionReferences:
+  - {fileID: -5733138350603327182, guid: cfc9451df54dcda4790a008eb0399f1b, type: 3}
+  - {fileID: -4637894793521700026, guid: cfc9451df54dcda4790a008eb0399f1b, type: 3}
+  - {fileID: -7031736902771110734, guid: cfc9451df54dcda4790a008eb0399f1b, type: 3}
+  - {fileID: -5612700154570604117, guid: cfc9451df54dcda4790a008eb0399f1b, type: 3}
+  scheme: Keyboard
+  key1GuideText: {fileID: 377525341392403786}
+  key2GuideText: {fileID: 4218770245611262848}
+  key3GuideText: {fileID: 9061085252294347589}
+  key4GuideText: {fileID: 1305139999569874483}
+  key1Bind: {fileID: 8670412519698096233}
+  key2Bind: {fileID: 2775106748338901624}
+  key3Bind: {fileID: 202906044233398453}
+  key4Bind: {fileID: 2972485217295791758}
+  mask: {fileID: 0}
 --- !u!1 &5400935152909422815
 GameObject:
   m_ObjectHideFlags: 0

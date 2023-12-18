@@ -7,20 +7,24 @@ using UnityEngine;
 
 public class AudioPlayer : MonoBehaviour
 {
-    [SerializeField] AudioSource audioSource;
-    [SerializeField] private double offset;
-    [SerializeField] static public bool seTask = false;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private SEPlayer _sePlayer;
+    [SerializeField] private double _offset;
+    [SerializeField] static public bool SETask = false;
 
     private void Awake()
     {
-        audioSource.Stop();
+        _audioSource.Stop();
     }
 
     private void Start()
     {
+        OverNotesSystem system = OverNotesSystem.Instance;
+
         BeatmapData beatmapData = OverNotesSystem.Instance.GetBeatmap();
-        audioSource.clip = beatmapData.clip;
-        offset = beatmapData.offset;
+        _audioSource.clip = beatmapData.clip;
+        _offset = beatmapData.offset + (system.Offset / 1000.0d);
+        _audioSource.volume = (float)(system.SettingItems[(int)SystemConstants.SettingItemTag.BGMRate].GetValue()) / 100.0f;
     }
 
     private void FixedUpdate()
@@ -30,9 +34,9 @@ public class AudioPlayer : MonoBehaviour
             PlayMusic();
         }
 
-        if(OverNotesSystem.Instance.NowTime - offset >= audioSource.clip.length)
+        if(OverNotesSystem.Instance.NowTime - _offset >= _audioSource.clip.length)
         {
-            audioSource.Stop();
+            _audioSource.Stop();
             PlayContext.Routine = PlayContext.PlayRoutine.FadeIn;
         }
     }
@@ -46,13 +50,13 @@ public class AudioPlayer : MonoBehaviour
         double addTime = time1f * 9.0f;
         PlayContext.DisplayTime = system.NowTime + addTime;
 
-        if(system.NowTime > offset &&
-            !audioSource.isPlaying &&
+        if(system.NowTime > _offset &&
+            !_audioSource.isPlaying &&
             PlayContext.Routine == PlayContext.PlayRoutine.Play)
         {
-            float time = (float)(system.NowTime - offset);
-            audioSource.time = time;
-            audioSource.Play();
+            float time = (float)(system.NowTime - _offset);
+            _audioSource.time = time;
+            _audioSource.Play();
         }
     }
 }
