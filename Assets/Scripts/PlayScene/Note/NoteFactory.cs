@@ -17,8 +17,10 @@ public class NoteFactory : MonoBehaviour
         // ノーツの生成
         GameObject note = Instantiate(m_notePrefab, PlayData.Lanes[column - 1]);
 
+        NoteController noteController = note.GetComponent<NoteController>();
+
         // ノーツのデータ
-        NoteParam noteParam = note.GetComponent<NoteController>().param;
+        NoteParam noteParam = noteController.param;
 
         // データ内に判定時間、判定終了時間を入れる
         noteParam.beatTime = beatTime;
@@ -33,8 +35,8 @@ public class NoteFactory : MonoBehaviour
             note.tag = "Long";
         }
 
-        // ローカル座標を0にする
-        note.transform.localPosition = Vector3.zero;
+        // Update position
+        noteController.OnUpdatePosition();
 
         // 回転角を0にする
         note.transform.localRotation = Quaternion.identity;
