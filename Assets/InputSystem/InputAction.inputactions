@@ -7,38 +7,38 @@
             "actions": [
                 {
                     "name": "Lane1",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "6a1fd1c1-2353-46e7-861b-7c83d0c3311b",
-                    "expectedControlType": "Key",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Lane2",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "e49a988c-c611-472d-9e8a-5aeac6762ddd",
-                    "expectedControlType": "Key",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Lane3",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "cc0e6cb2-5123-45d4-b94a-3a14e8376185",
-                    "expectedControlType": "Key",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Lane4",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "acf1a0af-8fcf-492b-ad2a-b3d89c4e79cd",
-                    "expectedControlType": "Key",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {

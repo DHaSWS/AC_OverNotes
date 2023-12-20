@@ -21,7 +21,11 @@ class SettingPanel : FancyCell<SettingPanelItemData> {
 
     private void Update() {
         OverNotesSystem system = OverNotesSystem.Instance;
-        if(itemValue.text != system.SettingItems[_index].GetValue().ToString()) {
+
+        if (
+            itemName.text != OverNotesSystem.Instance.SettingItems[(int)SystemConstants.SettingItemTag.KeyBind].Name &&
+            itemValue.text != system.SettingItems[_index].GetValue().ToString()
+            ) {
             itemValue.text = system.SettingItems[_index].GetValue().ToString();
         }
 
@@ -46,9 +50,14 @@ class SettingPanel : FancyCell<SettingPanelItemData> {
     public override void UpdateContent(SettingPanelItemData itemData) {
         itemName.text = itemData.Item.Name;
         itemGuide.text = itemData.Item.GuideName;
-        itemValue.text = itemData.Item.GetValue().ToString();
+
+        if (itemData.Item.Name != OverNotesSystem.Instance.SettingItems[(int)SystemConstants.SettingItemTag.KeyBind].Name) {
+            itemValue.text = itemData.Item.GetValue().ToString();
+        } else {
+            itemValue.text = "Set";
+        }
+
         _index = itemData.Index;
-        
     }
 
     public override void UpdatePosition(float position) {

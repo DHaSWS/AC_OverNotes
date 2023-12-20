@@ -82,19 +82,19 @@ namespace OverNotes.System {
                         // Save old value
                         _oldValue = Value;
 
-                        GuideMessage.GuideLane1 = "”jŠü";
-                        GuideMessage.GuideLane2 = "•Û‘¶";
-                        GuideMessage.GuideLane3 = "Œ¸‚ç‚·";
-                        GuideMessage.GuideLane4 = "‘‚â‚·";
+                        GuideMessage.GuideLanes[0] = "”jŠü";
+                        GuideMessage.GuideLanes[1] = "•Û‘¶";
+                        GuideMessage.GuideLanes[2] = "Œ¸‚ç‚·";
+                        GuideMessage.GuideLanes[3] = "‘‚â‚·";
                         break;
                     }
                 case SelectContext.SelectRoutine.Setting_Value: {
                         SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
 
-                        GuideMessage.GuideLane1 = "–ß‚é";
-                        GuideMessage.GuideLane2 = "Œˆ’è";
-                        GuideMessage.GuideLane3 = "‘O‚Ö";
-                        GuideMessage.GuideLane4 = "Ÿ‚Ö";
+                        GuideMessage.GuideLanes[0] = "–ß‚é";
+                        GuideMessage.GuideLanes[1] = "Œˆ’è";
+                        GuideMessage.GuideLanes[2] = "‘O‚Ö";
+                        GuideMessage.GuideLanes[3] = "Ÿ‚Ö";
                         break;
                     }
             }
@@ -102,10 +102,10 @@ namespace OverNotes.System {
 
         public override void Back() {
             Value = _oldValue;
-            GuideMessage.GuideLane1 = "–ß‚é";
-            GuideMessage.GuideLane2 = "Œˆ’è";
-            GuideMessage.GuideLane3 = "‘O‚Ö";
-            GuideMessage.GuideLane4 = "Ÿ‚Ö";
+            GuideMessage.GuideLanes[0] = "–ß‚é";
+            GuideMessage.GuideLanes[1] = "Œˆ’è";
+            GuideMessage.GuideLanes[2] = "‘O‚Ö";
+            GuideMessage.GuideLanes[3] = "Ÿ‚Ö";
             SelectContext.selectRoutine = SelectContext.SelectRoutine.Setting;
         }
 

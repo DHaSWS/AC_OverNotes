@@ -11,5 +11,7 @@ namespace OverNotes
         static public string GuideLane2 = "";
         static public string GuideLane3 = "";
         static public string GuideLane4 = "";
+
+        static public string[] GuideLanes = { "", "", "", "" };
     }
 }

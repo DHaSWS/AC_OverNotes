@@ -24,10 +24,10 @@ public class SelectSceneDirector : MonoBehaviour {
         OverNotesSystem.Instance.ChartIndex = 0;
         OverNotesSystem.Instance.SongIndex = 0;
 
-        GuideMessage.GuideLane1 = "–ß‚é";
-        GuideMessage.GuideLane2 = "Œˆ’è";
-        GuideMessage.GuideLane3 = "‘O‚Ö";
-        GuideMessage.GuideLane4 = "ŽŸ‚Ö";
+        GuideMessage.GuideLanes[0] = "–ß‚é";
+        GuideMessage.GuideLanes[1] = "Œˆ’è";
+        GuideMessage.GuideLanes[2] = "‘O‚Ö";
+        GuideMessage.GuideLanes[3] = "ŽŸ‚Ö";
 
         ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { });
     }

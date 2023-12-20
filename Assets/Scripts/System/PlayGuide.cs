@@ -10,11 +10,15 @@ public class PlayGuide : MonoBehaviour
     [SerializeField] private Text guideLane2;
     [SerializeField] private Text guideLane3;
     [SerializeField] private Text guideLane4;
+
+    [SerializeField] private Text[] _guideLanes = new Text[4];
+
     void Update()
     {
-        guideLane1.text = GuideMessage.GuideLane1;
-        guideLane2.text = GuideMessage.GuideLane2;
-        guideLane3.text = GuideMessage.GuideLane3;
-        guideLane4.text = GuideMessage.GuideLane4;
+        for(int i = 0; i < _guideLanes.Length; i++) {
+            if (_guideLanes[i].text != GuideMessage.GuideLanes[i]) {
+                _guideLanes[i].text = GuideMessage.GuideLanes[i];
+            }
+        }
     }
 }

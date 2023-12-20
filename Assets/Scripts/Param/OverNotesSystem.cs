@@ -27,7 +27,7 @@ namespace OverNotes.System {
             new SettingItemValue("BGMRate", "曲の大きさを変えます", 70.0f, 1.0f, 100.0f, 0.0f),
             new SettingItemValue("SERate", "効果音の大きさを変えます", 70.0f, 1.0f, 100.0f, 0.0f),
             new SettingItemValue("PlaySERate", "プレイ時の効果音の大きさを変えます(SERateとは別)", 70.0f, 1.0f, 100.0f, 0.0f),
-            new SettingItemToggle("KeyBind", "現在のキー設定を変えます", false)
+            new SettingItemBind("KeyBind", "現在のキー設定を変えます")
         };
 
         public float NoteSpeed = SystemConstants.NoteSpeed;

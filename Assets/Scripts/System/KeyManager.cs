@@ -1,4 +1,5 @@
 using OverNotes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,22 +15,22 @@ public class KeyManager : MonoBehaviour {
     [Header("InputSystem")]
     [SerializeField] private InputActionReference[] laneActionReferences;
     [SerializeField] private string scheme = "Keyboard";
+
     private InputAction[] laneActions;
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
+
+    private bool[] _isFinishedRebind = new bool[4];
+
     // ------------------------------------------------------------------------
     [Space]
     // Key - Key guide
     [Header("KeyGuide - Text")]
-    [SerializeField] private Text key1GuideText;
-    [SerializeField] private Text key2GuideText;
-    [SerializeField] private Text key3GuideText;
-    [SerializeField] private Text key4GuideText;
+    [SerializeField] private Text[] _keyGuideTexts = new Text[4];
+
     // Key - Key bind text
     [Header("KeyGuide - KeyBind")]
-    [SerializeField] private Text key1Bind;
-    [SerializeField] private Text key2Bind;
-    [SerializeField] private Text key3Bind;
-    [SerializeField] private Text key4Bind;
+    [SerializeField] private Text[] _keyBindTexts = new Text[4];
+
     // ------------------------------------------------------------------------
     [Space]
     // Mask
@@ -46,6 +47,7 @@ public class KeyManager : MonoBehaviour {
 
         for(int i = 0; i < laneActionReferences.Length; i++) {
             laneActions[i] = laneActionReferences[i].action;
+            _isFinishedRebind[i] = true;
         }
 
         RefreshKeyBind();
@@ -61,56 +63,123 @@ public class KeyManager : MonoBehaviour {
     // Rebind -----------------------------------------------------------------
     public void StartRebinding() {
         CheckValue();
+
+        var bindingIndex = laneActions[0].GetBindingIndex(InputBinding.MaskByGroup(scheme));
+
+        // Nullification lane actions
+        SetLaneActionsActive(false);
+
+        for(int i = 0; i < _isFinishedRebind.Length; i++) {
+            _isFinishedRebind[i] = false;
+        }
+
+        RefreshKeyBind();
+
+        //レーンのバインドを行う
+        OnStartRebinding(bindingIndex, 0);
+    }
+
+    // On start rebinding
+    private void OnStartRebinding(int bindingIndex, int actionIndex) {
+        rebindingOperation?.Cancel();
+
+        // Display mask
         if(mask != null) {
             mask.SetActive(true);
         }
-        bool result = false;
-        // すべてキーバインドできるまでループさせる
-        while (!result) {
-            foreach (InputAction action in laneActions) {
-                var bindingIndex = action.GetBindingIndex(InputBinding.MaskByGroup(scheme));
-                // レーンのバインドを行う
-                result = OnStartRebinding(action, bindingIndex);
-                // バインドに失敗したら
-                if (!result) {
-                    // ループを抜ける
-                    break;
-                }
+
+        // On finished rebind any key
+        void OnFinishedRebindAnyKey(bool hideMask = true) {
+            // Clean up operation
+            CleanUpOperation();
+
+            // Hidden mask
+            if(mask != null && hideMask) {
+                mask.SetActive(false);
             }
         }
-        if (mask != null) {
-            mask.SetActive(false);
+
+        // Create rebind operation
+        // and set callback
+        // and start
+        rebindingOperation = laneActions[actionIndex]
+            .PerformInteractiveRebinding(bindingIndex)
+            .OnComplete(_ => {
+                if (SearchDuplicationkey(actionIndex)) {
+                    OnFinishedRebindAnyKey(false);
+                    OnStartRebinding(bindingIndex, actionIndex);
+                } else {
+                    // Load next bind
+                    OnLoadNextBind(bindingIndex, actionIndex, OnFinishedRebindAnyKey);
+                }
+            })
+            .OnCancel(_ => {
+                OnFinishedRebindAnyKey();
+            })
+            .OnMatchWaitForAnother(Time.fixedDeltaTime)
+            .Start();
+    }
+
+    // Search duplivation key : 重複キーがあるか検索する
+    private bool SearchDuplicationkey(int nowIndex) {
+        bool result = false;
+
+        string thisBindKey = laneActions[nowIndex].GetBindingDisplayString();
+
+        for(int i = nowIndex - 1; i >=0; i--) {
+            string indexKey = laneActions[i].GetBindingDisplayString();
+
+            // Is this bind key duplicated
+            if(thisBindKey == indexKey) {
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
+    // On load next bind
+    private void OnLoadNextBind(int bindingIndex, int actionIndex, Action<bool> OnFinished) {
+        // Binded key
+        string bindKey = laneActions[actionIndex].GetBindingDisplayString();
+
+        // Is bind key "Esc"
+        if(bindKey == "Esc") {
+            // Restart
+            for(int i = 0; i < _isFinishedRebind.Length; i++) {
+                _isFinishedRebind[i] = false;
+            }
+
+            OnFinished(false);
+            RefreshKeyBind();
+            OnStartRebinding(bindingIndex, 0);
+            return;
+        }
+
+        _isFinishedRebind[actionIndex] = true;
+
+        RefreshKeyBind();
+
+        int nextActionIndex = actionIndex + 1;
+
+        if(nextActionIndex <= laneActions.Length - 1) {
+            OnFinished(false);
+            OnStartRebinding(bindingIndex , nextActionIndex);
+        } else {
+            SetLaneActionsActive(true);
+            OnFinished(true);
         }
     }
 
-    public bool OnStartRebinding(InputAction action, int bindingIndex) {
-        rebindingOperation?.Cancel();
-        action.Disable();
-
-        bool result = true;
-
-        void OnFinished(bool hideMask = true) {
-            CleanUpOperation();
-
-            action.Enable();
+    // Set lane actions active
+    private void SetLaneActionsActive(bool active) {
+        foreach(var action in laneActions) {
+            if (active) {
+                action.Enable();
+            } else {
+                action.Disable();
+            }
         }
-
-        // ここでリバインドを行うらしい
-        rebindingOperation = action
-            .PerformInteractiveRebinding(bindingIndex)
-            .OnComplete(_ => {
-                OnFinished();
-            })
-            .OnCancel(_ => {
-                // キャンセル処理
-                OnFinished();
-                result = false;
-            })
-            .OnMatchWaitForAnother(0.2f)
-            .WithCancelingThrough("<Keyboard>/escape")
-            .Start();   // リバインド開始
-
-        return result;
     }
 
     // メモリリーク回避用
@@ -118,6 +187,8 @@ public class KeyManager : MonoBehaviour {
         rebindingOperation?.Dispose();
         rebindingOperation = null;
     }
+
+    // ------------------------------------------------------------------------
 
     private void Update() {
         CheckValue();
@@ -127,29 +198,23 @@ public class KeyManager : MonoBehaviour {
     private void RefreshKeyBind() {
         CheckValue();
         // バインドされたものを入れる
-        key1Bind.text = laneActions[0].GetBindingDisplayString();
-        key2Bind.text = laneActions[1].GetBindingDisplayString();
-        key3Bind.text = laneActions[2].GetBindingDisplayString();
-        key4Bind.text = laneActions[3].GetBindingDisplayString();
+        for(int i = 0; i < _keyBindTexts.Length; i++) {
+            if (_isFinishedRebind[i]) {
+                _keyBindTexts[i].text = laneActions[i].GetBindingDisplayString();
+            } else {
+                _keyBindTexts[i].text = "";
+            }
+        }
     }
 
     private void RefreshKeyGuideText() {
         CheckValue();
-        if (key1GuideText.text != GuideMessage.GuideLane1) {
-            key1GuideText.text = GuideMessage.GuideLane1;
-            Debug.Log("Changed key1 guide text : " + GuideMessage.GuideLane1);
-        }
-        if (key2GuideText.text != GuideMessage.GuideLane2) {
-            key2GuideText.text = GuideMessage.GuideLane2;
-            Debug.Log("Changed key2 guide text : " + GuideMessage.GuideLane2);
-        }
-        if (key3GuideText.text != GuideMessage.GuideLane3) {
-            key3GuideText.text = GuideMessage.GuideLane3;
-            Debug.Log("Changed key3 guide text : " + GuideMessage.GuideLane3);
-        }
-        if (key4GuideText.text != GuideMessage.GuideLane4) {
-            key4GuideText.text = GuideMessage.GuideLane4;
-            Debug.Log("Changed key4 guide text : " + GuideMessage.GuideLane4);
+
+        for(int i=0; i< _keyBindTexts.Length;i++) {
+            if (_keyGuideTexts[i].text != GuideMessage.GuideLanes[i]){
+                _keyGuideTexts[i].text = GuideMessage.GuideLanes[i];
+                Debug.Log($"Changed key{i} guide text : {GuideMessage.GuideLanes[i]}");
+            }
         }
     }
 
@@ -158,17 +223,14 @@ public class KeyManager : MonoBehaviour {
             laneActionReferences.Length != 4) {
             throw new System.Exception("Laneちゃんと設定しようね");
         }
-        if (key1GuideText == null ||
-            key2GuideText == null ||
-            key3GuideText == null ||
-            key4GuideText == null) {
-            throw new System.Exception("KeyGuideTextちゃんと設定しようね");
-        }
-        if (key1Bind == null ||
-            key2Bind == null ||
-            key3Bind == null ||
-            key4Bind == null) {
-            throw new System.Exception("KeyBindちゃんと設定しようね");
+
+        for(int i = 0; i < 4; i++) {
+            if (_keyGuideTexts[i] == null) {
+                throw new System.Exception($"Key{i} guide text is not set");
+            }
+            if (_keyBindTexts[i] == null) {
+                throw new System.Exception($"Key{i} bind text is not set");
+            }
         }
     }
 }
