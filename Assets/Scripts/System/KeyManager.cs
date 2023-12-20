@@ -8,8 +8,8 @@ using UnityEngine.UI;
 
 public class KeyManager : MonoBehaviour {
     // Singleton
-    static private KeyManager instance;
-    static public KeyManager Instance { get { return instance; } }
+    static private KeyManager _instance;
+    static public KeyManager Instance { get { return _instance; } }
 
     // InputAction
     [Header("InputSystem")]
@@ -38,14 +38,18 @@ public class KeyManager : MonoBehaviour {
     [SerializeField] private GameObject mask;
 
     private void Awake() {
-        if (instance == null) {
-            instance = this;
+        if (_instance != null) {
+            Destroy(gameObject);
+            return;
         }
+
+        _instance = this;
+
         CheckValue();
 
         laneActions = new InputAction[laneActionReferences.Length];
 
-        for(int i = 0; i < laneActionReferences.Length; i++) {
+        for (int i = 0; i < laneActionReferences.Length; i++) {
             laneActions[i] = laneActionReferences[i].action;
             _isFinishedRebind[i] = true;
         }

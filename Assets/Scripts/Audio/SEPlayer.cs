@@ -27,7 +27,9 @@ public class SEPlayer : MonoBehaviour {
     }
 
     private void PlaySE(int index) {
-        _sources[index].PlayOneShot(_sources[index].clip);
+        if(_sources[index] != null) {
+            _sources[index].PlayOneShot(_sources[index].clip);
+        }
     }
 
 }

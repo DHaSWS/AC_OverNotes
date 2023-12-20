@@ -44,7 +44,9 @@ public class PlayerController : MonoBehaviour {
             int index = int.Parse(num) - 1;
 
             if (kvp.phase == InputActionPhase.Started) {
-                OnPressLane?.Invoke(0);
+                if(OnPressLane != null) {
+                    OnPressLane?.Invoke(0);
+                }
                 Push(index, triggeredTime);
             }
             if (kvp.phase == InputActionPhase.Canceled)
