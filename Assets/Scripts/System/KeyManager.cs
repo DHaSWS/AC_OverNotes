@@ -19,7 +19,7 @@ public class KeyManager : MonoBehaviour {
     private InputAction[] laneActions;
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
 
-    private bool[] _isFinishedRebind = new bool[4];
+    public bool[] IsFinishedRebind { get; private set; } = new bool[4];
 
     // ------------------------------------------------------------------------
     [Space]
@@ -51,7 +51,7 @@ public class KeyManager : MonoBehaviour {
 
         for (int i = 0; i < laneActionReferences.Length; i++) {
             laneActions[i] = laneActionReferences[i].action;
-            _isFinishedRebind[i] = true;
+            IsFinishedRebind[i] = true;
         }
 
         RefreshKeyBind();
@@ -73,8 +73,8 @@ public class KeyManager : MonoBehaviour {
         // Nullification lane actions
         SetLaneActionsActive(false);
 
-        for(int i = 0; i < _isFinishedRebind.Length; i++) {
-            _isFinishedRebind[i] = false;
+        for(int i = 0; i < IsFinishedRebind.Length; i++) {
+            IsFinishedRebind[i] = false;
         }
 
         RefreshKeyBind();
@@ -150,8 +150,8 @@ public class KeyManager : MonoBehaviour {
         // Is bind key "Esc"
         if(bindKey == "Esc") {
             // Restart
-            for(int i = 0; i < _isFinishedRebind.Length; i++) {
-                _isFinishedRebind[i] = false;
+            for(int i = 0; i < IsFinishedRebind.Length; i++) {
+                IsFinishedRebind[i] = false;
             }
 
             OnFinished(false);
@@ -160,7 +160,7 @@ public class KeyManager : MonoBehaviour {
             return;
         }
 
-        _isFinishedRebind[actionIndex] = true;
+        IsFinishedRebind[actionIndex] = true;
 
         RefreshKeyBind();
 
@@ -203,7 +203,7 @@ public class KeyManager : MonoBehaviour {
         CheckValue();
         // ƒoƒCƒ“ƒh‚³‚ê‚½‚à‚Ì‚ð“ü‚ê‚é
         for(int i = 0; i < _keyBindTexts.Length; i++) {
-            if (_isFinishedRebind[i]) {
+            if (IsFinishedRebind[i]) {
                 _keyBindTexts[i].text = laneActions[i].GetBindingDisplayString();
             } else {
                 _keyBindTexts[i].text = "";
