@@ -5,37 +5,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class NoteController : MonoBehaviour
-{
+public class NoteController : MonoBehaviour {
     [SerializeField] public NoteParam param;
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         param = new NoteParam();
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         OverNotesSystem system = OverNotesSystem.Instance;
 
-        switch (param.noteState)
-        {
-            case NoteParam.NOTE_STATE.NORMAL:
-                {
-                    UpdateNormal();
-                    break;
-                }
-            case NoteParam.NOTE_STATE.HOLD:
-                {
-                    UpdateHold();
-                    break;
-                }
-        }
+        // Update position
+        OnUpdatePosition();
 
         double sub = (float)(system.NowTime - param.beatEndTime);
 
-        if(sub > SystemConstants.JudgementRange[(int)PlayContext.Judge.Bad])
-        {
+        if (sub > SystemConstants.JudgementRange[(int)PlayContext.Judge.Bad]) {
             Destroy(gameObject);
             PlayData.Combo = 0;
             ResultData.Count[(int)PlayContext.Judge.Miss]++;
@@ -43,8 +28,21 @@ public class NoteController : MonoBehaviour
         }
     }
 
-    private void UpdateNormal()
-    {
+    // On update position
+    public void OnUpdatePosition() {
+        switch (param.noteState) {
+            case NoteParam.NOTE_STATE.NORMAL: {
+                    UpdateNormal();
+                    break;
+                }
+            case NoteParam.NOTE_STATE.HOLD: {
+                    UpdateHold();
+                    break;
+                }
+        }
+    }
+
+    private void UpdateNormal() {
         OverNotesSystem system = OverNotesSystem.Instance;
         float noteSpeed = (float)system.SettingItems[(int)SystemConstants.SettingItemTag.NoteSpeed].GetValue();
 
@@ -60,8 +58,7 @@ public class NoteController : MonoBehaviour
         spriteRenderer.size = new Vector2(1, length);
     }
 
-    private void UpdateHold()
-    {
+    private void UpdateHold() {
         Vector3 position = Vector3.zero;
         transform.localPosition = position;
 
@@ -75,58 +72,44 @@ public class NoteController : MonoBehaviour
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.size = new Vector2(1, length);
 
-        if(nowTime > param.beatEndTime)
-        {
+        if (nowTime > param.beatEndTime) {
             JudgeHold(0.0f);
         }
     }
 
-    public void JudgeNormal(float subTime)
-    {
-        if (subTime > SystemConstants.JudgementRange[(int)PlayContext.Judge.Bad])
-        {
+    public void JudgeNormal(float subTime) {
+        if (subTime > SystemConstants.JudgementRange[(int)PlayContext.Judge.Bad]) {
             return;
         }
         PlayContext.Judge judge = PlayContext.GetJudge(subTime);
         ResultData.Count[(int)judge]++;
 
-        if (judge < PlayContext.Judge.Bad)
-        {
+        if (judge < PlayContext.Judge.Bad) {
             PlayData.Combo++;
-        }
-        else
-        {
+        } else {
             PlayData.Combo = 0;
         }
 
         ResultData.SetScore(judge);
 
-        if (tag == "Long")
-        {
+        if (tag == "Long") {
             param.noteState = NoteParam.NOTE_STATE.HOLD;
-        }
-        else
-        {
+        } else {
             Destroy(gameObject);
         }
     }
 
-    public void JudgeHold(float subTime)
-    {
-        if(param.noteState != NoteParam.NOTE_STATE.HOLD)
-        {
+    public void JudgeHold(float subTime) {
+        if (param.noteState != NoteParam.NOTE_STATE.HOLD) {
             return;
         }
 
         PlayContext.Judge judge = PlayContext.GetJudge(subTime);
         ResultData.Count[(int)judge]++;
 
-        if (judge < PlayContext.Judge.Bad)
-        {
+        if (judge < PlayContext.Judge.Bad) {
             PlayData.Combo++;
-        }
-        else
-        {
+        } else {
             PlayData.Combo = 0;
         }
 
