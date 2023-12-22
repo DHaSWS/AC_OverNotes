@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using Effekseer;
-using static UnityEditor.PlayerSettings;
 using UnityEngine.SearchService;
 using OverNotes.System;
 using System;

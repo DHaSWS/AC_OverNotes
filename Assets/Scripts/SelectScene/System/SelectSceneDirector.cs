@@ -29,6 +29,8 @@ public class SelectSceneDirector : MonoBehaviour {
         GuideMessage.GuideLanes[2] = "‘O‚Ö";
         GuideMessage.GuideLanes[3] = "ŽŸ‚Ö";
 
+        KeyManager.Instance.SetVisible(true);
+
         ONFade.SetFadeOut(this, 0.5f, fadeImage, () => { });
     }
 

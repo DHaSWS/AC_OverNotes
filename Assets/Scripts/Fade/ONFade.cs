@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ONFade : MonoBehaviour
-{
+public class ONFade : MonoBehaviour {
     static public float value = 0.0f;
 
-    public enum State
-    {
+    public enum State {
         Idle_FadeIn,
         FadeIn,
         Idle_FadeOut,
@@ -18,8 +16,7 @@ public class ONFade : MonoBehaviour
 
     static private State state = State.Idle_FadeOut;
 
-    static public bool Same(State targetState)
-    {
+    static public bool Same(State targetState) {
         return state == targetState;
     }
 
@@ -28,10 +25,16 @@ public class ONFade : MonoBehaviour
         float time,
         Image image,
         Action action
-        )
-    {
-        if (state != State.Idle_FadeIn)
-        {
+        ) {
+
+        if (
+            state == State.FadeIn ||
+            state == State.FadeOut
+            ) {
+            return;
+        }
+
+        if (state != State.Idle_FadeIn) {
             Debug.LogError("State is not Idle_FadeIn");
             return;
         }
@@ -45,11 +48,9 @@ public class ONFade : MonoBehaviour
         float time,
         Image image,
         Action action
-        )
-    {
+        ) {
         float nowTime = 0.0f;
-        while (value <= 1.0f)
-        {
+        while (value <= 1.0f) {
             value = nowTime / time;
             image.color = new Color(
                 image.color.r,
@@ -69,10 +70,15 @@ public class ONFade : MonoBehaviour
         float time,
         Image image,
         Action action
-        )
-    {
-        if (state != State.Idle_FadeOut)
-        {
+        ) {
+        if (
+            state == State.FadeIn ||
+            state == State.FadeOut
+        ) {
+            return;
+        }
+
+        if (state != State.Idle_FadeOut) {
             Debug.LogError("State is not Idle_FadeOut");
             return;
         }
@@ -86,11 +92,9 @@ public class ONFade : MonoBehaviour
         float time,
         Image image,
         Action action
-        )
-    {
+        ) {
         float nowTime = 0.0f;
-        while (value >= 0.0f)
-        {
+        while (value >= 0.0f) {
             value = 1.0f - nowTime / time;
             image.color = new Color(
                 image.color.r,

@@ -24,16 +24,23 @@ public class ResultDirector : MonoBehaviour
     [SerializeField] private Text artist;
     [SerializeField] private Text chart;
 
+    private void Awake() {
+        KeyManager.Instance.GetComponent<CanvasGroup>().alpha = 1.0f;
+    }
+
     private void Start()
     {
         OverNotesSystem system = OverNotesSystem.Instance;
+        KeyManager keyManager = KeyManager.Instance;
         
         ResultContext.state = ResultContext.State.Fade_Out;
 
-        GuideMessage.GuideLane1 = "";
-        GuideMessage.GuideLane2 = "";
-        GuideMessage.GuideLane3 = "ŽŸ‚Ö";
-        GuideMessage.GuideLane4 = "";
+        GuideMessage.GuideLanes[0] = "";
+        GuideMessage.GuideLanes[1] = "";
+        GuideMessage.GuideLanes[2] = "ŽŸ‚Ö";
+        GuideMessage.GuideLanes[3] = "";
+
+        keyManager.SetVisible(false, false, true, false);
 
         score.text = Mathf.RoundToInt(ResultData.Score).ToString("N0");
         acc.text = (ResultData.Score / SystemConstants.AllPerfectScore).ToString("000.00%");
