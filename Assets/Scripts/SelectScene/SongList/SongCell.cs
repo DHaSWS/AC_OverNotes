@@ -2,13 +2,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using FancyScrollView;
 using OverNotes;
+using TMPro;
 
 class SongCell : FancyCell<ItemData>
 {
     [SerializeField] Text message = default;
     [SerializeField] Animator animator = default;
-    [SerializeField] Text textTitle;
-    [SerializeField] Text textArtist;
+    [SerializeField] TMP_Text textTitle;
+    [SerializeField] TMP_Text textArtist;
 
     float currentPosition = 0;
 
