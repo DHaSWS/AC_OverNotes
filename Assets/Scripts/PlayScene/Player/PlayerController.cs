@@ -108,7 +108,6 @@ public class PlayerController : MonoBehaviour {
         //エフェクトの座標計算
         Vector3 effectPosition = new Vector3(-1.5f + ((pushNumber) * 1.0f), -5, 0.5f);
 
-
         //エフェクト
         EffekseerHandle handle = EffekseerSystem.PlayEffect(effect, effectPosition);
         //拡大率
