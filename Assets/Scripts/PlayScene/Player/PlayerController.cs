@@ -35,7 +35,18 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void Update() {
+    /// <summary>
+    /// Update
+    /// </summary>
+    void Update() {
+        // Update key
+        OnUpdateKey();
+    }
+
+    /// <summary>
+    /// Update key
+    /// </summary>
+    private void OnUpdateKey() {
         foreach (var kvp in trace) {
             double triggeredTime = OverNotesSystem.Instance.NowTime - (Time.realtimeSinceStartup - kvp.time);
             string actionName = kvp.action.name;
@@ -43,7 +54,7 @@ public class PlayerController : MonoBehaviour {
             int index = int.Parse(num) - 1;
 
             if (kvp.phase == InputActionPhase.Started) {
-                if(OnPressLane != null) {
+                if (OnPressLane != null) {
                     OnPressLane?.Invoke(0);
                 }
                 Push(index, triggeredTime);
@@ -54,21 +65,11 @@ public class PlayerController : MonoBehaviour {
         trace.Clear();
     }
 
-    public void TriggeredKey(InputAction.CallbackContext context) {
-        double triggeredTime = OverNotesSystem.Instance.NowTime - (Time.realtimeSinceStartup - context.time);
-        string actionName = context.action.name;
-        string num = actionName.Substring(4, 1);
-        int index = int.Parse(num) - 1;
-
-        if (PlayData.Lanes[index].childCount == 0) {
-            return;
-        }
-        if (context.started)
-            Push(index, triggeredTime);
-        if (context.canceled)
-            Released(index, triggeredTime);
-    }
-
+    /// <summary>
+    /// Push
+    /// </summary>
+    /// <param name="index">Lane index</param>
+    /// <param name="triggeredTime">Triggered time</param>
     private void Push(int index, double triggeredTime) {
         if (PlayData.Lanes[index].childCount == 0) {
             return;
@@ -76,12 +77,20 @@ public class PlayerController : MonoBehaviour {
         GameObject note = PlayData.Lanes[index].GetChild(0).gameObject;
         NoteController noteController = note.GetComponent<NoteController>();
 
+        // Play SE
         se.PlayOneShot(se.clip);
 
         PlayTapEffect(index);
 
+        // Judge
         noteController.JudgeNormal(Mathf.Abs((float)(triggeredTime - noteController.param.beatTime)));
     }
+
+    /// <summary>
+    /// Released
+    /// </summary>
+    /// <param name="index">Lane index</param>
+    /// <param name="triggeredTime">Triggered time</param>
     private void Released(int index, double triggeredTime) {
         if (PlayData.Lanes[index].childCount == 0) {
             return;

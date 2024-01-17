@@ -8,7 +8,7 @@ public class NoteFactory : MonoBehaviour
 {
     public GameObject m_notePrefab;
 
-    public void CreateNote(
+    public GameObject CreateNote(
         double beatTime,
         double beatEndTime,
         int column
@@ -35,10 +35,9 @@ public class NoteFactory : MonoBehaviour
             note.tag = "Long";
         }
 
-        // Update position
-        noteController.OnUpdatePosition();
-
         // ‰ñ“]Šp‚ð0‚É‚·‚é
         note.transform.localRotation = Quaternion.identity;
+
+        return note;
     }
 }

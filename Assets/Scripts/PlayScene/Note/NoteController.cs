@@ -2,8 +2,11 @@ using OverNotes;
 using OverNotes.System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.VirtualTexturing;
+using static OverNotes.PlayContext;
 
 public class NoteController : MonoBehaviour {
     [SerializeField] public NoteParam param;
@@ -12,20 +15,9 @@ public class NoteController : MonoBehaviour {
         param = new NoteParam();
     }
 
-    private void FixedUpdate() {
-        OverNotesSystem system = OverNotesSystem.Instance;
-
+    public void OnUpdate() {
         // Update position
         OnUpdatePosition();
-
-        double sub = (float)(system.NowTime - param.beatEndTime);
-
-        if (sub > SystemConstants.JudgementRange[(int)PlayContext.Judge.Bad]) {
-            Destroy(gameObject);
-            PlayData.Combo = 0;
-            ResultData.Count[(int)PlayContext.Judge.Miss]++;
-            ResultData.SetScore(PlayContext.Judge.Miss);
-        }
     }
 
     // On update position
@@ -77,11 +69,37 @@ public class NoteController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Get sub time
+    /// </summary>
+    /// <returns>Sub time</returns>
+    public float GetSubTime() {
+        return (float)(OverNotesSystem.Instance.NowTime - param.beatEndTime);
+    }
+
+    /// <summary>
+    /// Set judge miss
+    /// </summary>
+    public void SetJudgeMiss() {
+        PlayData.Combo = 0;
+        ResultData.Count[(int)PlayContext.Judge.Miss]++;
+        ResultData.SetScore(PlayContext.Judge.Miss);
+
+        GameObject judgeObj = GameObject.Find("UI/Judge");
+        judgeObj.GetComponent<Judge>().SetAnimation(PlayContext.Judge.Miss);
+
+        Destroy(gameObject);
+    }
+
     public void JudgeNormal(float subTime) {
         if (subTime > SystemConstants.JudgementRange[(int)PlayContext.Judge.Bad]) {
             return;
         }
-        PlayContext.Judge judge = PlayContext.GetJudge(subTime);
+        PlayContext.Judge judge = GetJudge(subTime);
+
+        GameObject judgeObj = GameObject.Find("UI/Judge");
+        judgeObj.GetComponent<Judge>().SetAnimation(judge);
+
         ResultData.Count[(int)judge]++;
 
         if (judge < PlayContext.Judge.Bad) {
@@ -106,6 +124,9 @@ public class NoteController : MonoBehaviour {
 
         PlayContext.Judge judge = PlayContext.GetJudge(subTime);
         ResultData.Count[(int)judge]++;
+
+        GameObject judgeObj = GameObject.Find("UI/Judge");
+        judgeObj.GetComponent<Judge>().SetAnimation(judge);
 
         if (judge < PlayContext.Judge.Bad) {
             PlayData.Combo++;
