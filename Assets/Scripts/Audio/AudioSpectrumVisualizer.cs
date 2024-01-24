@@ -34,10 +34,6 @@ public class AudioSpectrumVisualizer : MonoBehaviour {
         SetSpectrumBar();
     }
 
-    private void CalculateNormalizeData() {
-        float[] normalizedData;
-    }
-
     /// <summary>
     /// Update spectrum bar
     /// </summary>
@@ -46,7 +42,7 @@ public class AudioSpectrumVisualizer : MonoBehaviour {
     private void OnUpdateSpectrumBar(int index, GameObject spectrumBar) {
         RectTransform rectTransform = spectrumBar.GetComponent<RectTransform>();
         Vector2 sizeDelta = rectTransform.sizeDelta;
-        float spectrumData = -Mathf.Log(_dataGetter.SpectrumData[_barStep * index]);
+        float spectrumData = Mathf.Log(_dataGetter.SpectrumData[_barStep * index] + 1) * 5;
         sizeDelta.y = _barMaxHeight * spectrumData;
         rectTransform.sizeDelta = sizeDelta;
     }
