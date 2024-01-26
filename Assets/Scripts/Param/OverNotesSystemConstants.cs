@@ -32,7 +32,6 @@ namespace OverNotes.System {
         static public readonly float Offset = 0.0f;           // オフセット
         static public readonly float LaneCoverSize = 0.0f;    // レーンカバーのサイズ
         static public readonly float BGMRate = 0.7f;          // 曲のボリューム
-        static public readonly float SERate = 0.7f;           // 効果音のボリューム
         static public readonly float PlaySERate = 0.7f;       // プレイ時の効果音のボリューム
 
         // Setting item
@@ -41,7 +40,6 @@ namespace OverNotes.System {
             new() { "Offset", "曲と譜面のズレを調節します", 0.0f, 0.0f, 5.0f, 200.0f, -200.0f},
             new() { "LaneCoverSize", "レーン上部を隠すカバーの縦幅を変えます", 0.0f, 0.0f, 1.0f, 80.0f, 0.0f },
             new() { "BGMRate", "曲の大きさを変えます", 70.0f, 70.0f, 1.0f, 100.0f, 0.0f },
-            new() { "SERate", "効果音の大きさを変えます", 70.0f, 70.0f, 1.0f, 100.0f, 0.0f },
             new() { "PlaySERate", "プレイ時の効果音の大きさを変えます(SERateとは別)", 70.0f, 70.0f, 1.0f, 100.0f, 0.0f },
             new() { "KeyBind", "現在のキー設定を変えます"}
         };
@@ -51,7 +49,6 @@ namespace OverNotes.System {
             Offset,
             LaneCoverSize,
             BGMRate,
-            SERate,
             PlaySERate,
             KeyBind
         }

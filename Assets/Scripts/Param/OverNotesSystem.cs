@@ -23,10 +23,9 @@ namespace OverNotes.System {
         public List<SettingItem> SettingItems = new() {
             new SettingItemValue("NoteSpeed", "ノーツの速度を変えます", 15.0f, 0.5f, 30.0f, 1.0f ),
             new SettingItemValue("Offset", "曲と譜面のズレを調節します", 0.0f, 5.0f, 200.0f, -200.0f),
-            new SettingItemValue("LaneCoverSize", "レーン上部を隠すカバーの縦幅を変えます", 0.0f, 1.0f, 80.0f, 0.0f),
-            new SettingItemValue("BGMRate", "曲の大きさを変えます", 70.0f, 1.0f, 100.0f, 0.0f),
-            new SettingItemValue("SERate", "効果音の大きさを変えます", 70.0f, 1.0f, 100.0f, 0.0f),
-            new SettingItemValue("PlaySERate", "プレイ時の効果音の大きさを変えます(SERateとは別)", 70.0f, 1.0f, 100.0f, 0.0f),
+            new SettingItemValue("LaneCoverSize", "レーン上部を隠すカバーの縦幅を変えます", 0.0f, 5.0f, 80.0f, 0.0f),
+            new SettingItemValue("BGMRate", "曲の大きさを変えます", 70.0f, 5.0f, 100.0f, 0.0f),
+            new SettingItemValue("PlaySERate", "プレイ時の効果音の大きさを変えます(SERateとは別)", 70.0f, 5.0f, 100.0f, 0.0f),
             new SettingItemBind("KeyBind", "現在のキー設定を変えます")
         };
 
