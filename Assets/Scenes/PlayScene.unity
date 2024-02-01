@@ -511,7 +511,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -363.00012, y: -40}
+  m_AnchoredPosition: {x: -363.0001, y: -40}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &89459305
@@ -856,7 +856,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   se: {fileID: 1153650740}
   asset: {fileID: -944628639613478452, guid: cfc9451df54dcda4790a008eb0399f1b, type: 3}
-  effect: {fileID: 11400000, guid: 1b95b130d5c3bae4c838aa235baf4638, type: 2}
+  tapEffect: {fileID: 11400000, guid: 1b95b130d5c3bae4c838aa235baf4638, type: 2}
+  longEffect: {fileID: 11400000, guid: eb50e64e613d8d648a900fb6ffe2fd71, type: 2}
 --- !u!114 &172800319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4086,7 +4087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.32995605, y: -324.21005}
+  m_AnchoredPosition: {x: -0.32995605, y: -324.21008}
   m_SizeDelta: {x: -991.48, y: -648.43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1685694029
