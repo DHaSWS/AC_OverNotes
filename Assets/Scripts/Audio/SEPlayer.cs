@@ -15,13 +15,12 @@ public class SEPlayer : MonoBehaviour {
         }
 
         string sceneName = SceneManager.GetActiveScene().name;
+        
 
         foreach (AudioSource source in _sources) {
             if (sceneName == "PlayScene") {
                 source.volume = (float)OverNotesSystem.Instance.SettingItems[(int)SystemConstants.SettingItemTag.PlaySERate].GetValue();
                 PlayerController.OnPressLane += PlaySE;
-            } else {
-                source.volume = (float)OverNotesSystem.Instance.SettingItems[(int)SystemConstants.SettingItemTag.SERate].GetValue();
             }
         }
     }
