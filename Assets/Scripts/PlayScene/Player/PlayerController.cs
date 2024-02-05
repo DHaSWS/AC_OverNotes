@@ -6,6 +6,7 @@ using Effekseer;
 using UnityEngine.SearchService;
 using OverNotes.System;
 using System;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] AudioSource se;
@@ -13,10 +14,11 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] InputActionTrace trace;
     [SerializeField] EffekseerEffectAsset tapEffect;
     [SerializeField] EffekseerEffectAsset longEffect;
-    EffekseerHandle longEffectHandle;
+
+    EffekseerHandle[] longEffectHandleList = new EffekseerHandle[4];
     // Invoke actions
     static public event Action<int> OnPressLane;
-
+    
     //エフェクトの拡大率
     private static Vector3 m_tapEffectScale = new Vector3(0.7f, 0.7f, 0.7f);
     private static Vector3 m_longEffectScale = new Vector3(0.3f, 0.3f, 0.3f);
@@ -102,18 +104,18 @@ public class PlayerController : MonoBehaviour {
     /// <param name="index">Lane index</param>
     /// <param name="triggeredTime">Triggered time</param>
     private void Released(int index, double triggeredTime) {
+        //ロングノーツエフェクトを止める
+        StopLongEffect(index);
+        
         if (PlayData.Lanes[index].childCount == 0) {
             return;
         }
         GameObject note = PlayData.Lanes[index].GetChild(0).gameObject;
         NoteController noteController = note.GetComponent<NoteController>();
-        noteController.JudgeHold(Mathf.Abs((float)(triggeredTime - noteController.param.beatEndTime)));
 
-        if (note.tag == "Long")
-        {
-            StopLongEffect();
-        }
-        
+      
+
+        noteController.JudgeHold(Mathf.Abs((float)(triggeredTime - noteController.param.beatEndTime)));
 
     }
 
@@ -151,18 +153,18 @@ public class PlayerController : MonoBehaviour {
         Quaternion effectRotation = new Quaternion(90, q.y+90, 90, q.w);
 
         //エフェクト
-        longEffectHandle = EffekseerSystem.PlayEffect(longEffect, effectPosition);
+        longEffectHandleList[pushNumber] = EffekseerSystem.PlayEffect(longEffect, effectPosition);
 
         //拡大率
-        longEffectHandle.SetScale(m_longEffectScale);
+        longEffectHandleList[pushNumber].SetScale(m_longEffectScale);
         //角度
-        longEffectHandle.SetRotation(effectRotation);
+        longEffectHandleList[pushNumber].SetRotation(effectRotation);
         
         Debug.Log("playLongEffect!!");
     }
 
-    private void StopLongEffect()
+    private void StopLongEffect(int pushNumber)
     {
-        longEffectHandle.Stop();
+        longEffectHandleList[pushNumber].Stop();
     }
 }
