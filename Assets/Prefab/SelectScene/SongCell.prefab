@@ -355,7 +355,7 @@ MonoBehaviour:
   startPosition: 0
   dir: -1
   minWidth: 540
-  speed: 1
+  speed: 1.2
 --- !u!114 &6475046051521422485
 MonoBehaviour:
   m_ObjectHideFlags: 0

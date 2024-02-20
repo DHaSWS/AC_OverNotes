@@ -33,6 +33,7 @@ public class PlaySceneDirector : MonoBehaviour
         ResultData.Count = new int[] { 0, 0, 0, 0, 0, 0 };
         ResultData.Score = 0.0f;
         ResultData.MaxCombo = 0;
+        PlayData.Combo = 0;
     }
 
     /// <summary>
